@@ -126,7 +126,7 @@
 		<variable name="resource" units="none" ID="0">
 			<physical_parameter_set>
 				<diffusion_coefficient units="micron^2/min">100000.0</diffusion_coefficient>
-				<decay_rate units="1/min">0.1</decay_rate>  
+				<decay_rate units="1/min">0</decay_rate>  <!-- 0.1 --> 
 			</physical_parameter_set>
 			<initial_condition units="none">1</initial_condition>
 			<Dirichlet_boundary_condition units="none" enabled="true">1</Dirichlet_boundary_condition>
@@ -529,7 +529,7 @@
 		
 		<div_coloring type="divider" description="---Coloring settings---"/>
 
-		<A_color type="string" description="color for A cells">blue</A_color>
+		<A_color type="string" description="color for A cells">mediumpurple</A_color>
 		<B_color type="string" description="color for B cells">orange</B_color>
 		<C_color type="string" description="color for C cells">red</C_color>
 		
@@ -537,7 +537,7 @@
 		<A_cycle_A type="string" description="impact of signal A on A cycling (promote, inhibit, or neutral)">neutral</A_cycle_A>
 		<A_cycle_B type="string" description="impact of signal B on A cycling (promote, inhibit, or neutral)">neutral</A_cycle_B>
 		<A_cycle_C type="string" description="impact of signal C on A cycling (promote, inhibit, or neutral)">neutral</A_cycle_C>
-		<A_cycle_pressure type="bool" description="pressure > 0.5 inhibits A cycle (true or false)">true</A_cycle_pressure>
+		<A_cycle_pressure_threshold type="double" description="pressure > threshold inhibits A cycling">1.0</A_cycle_pressure_threshold>
 
 		<predators_eat_prey type="bool" description="set to true if predators can eat prey">true</predators_eat_prey>
 		<predators_cycle_if_big type="bool" description="set to true if predators should cycle if they are well-fed (and thus big)">true</predators_cycle_if_big>

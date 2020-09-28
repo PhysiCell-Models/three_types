@@ -302,6 +302,10 @@ void prey_cycling_function( Cell* pCell , Phenotype& phenotype, double dt )
 
 void A_phenotype( Cell* pCell, Phenotype& phenotype, double dt )
 {
+	// housekeeping 
+	static int nApoptosis = cell_defaults.phenotype.death.find_death_model_index( "apoptosis"); 
+	static int nNecrosis  = cell_defaults.phenotype.death.find_death_model_index( "necrosis"); 
+
 	// sample A, B, C, resource;
 	static int nA = microenvironment.find_density_index( "signal A" ); 
 	static int nB = microenvironment.find_density_index( "signal B" ); 
@@ -314,11 +318,15 @@ void A_phenotype( Cell* pCell, Phenotype& phenotype, double dt )
 	double R = pCell->nearest_density_vector()[nR];
 	double p = pCell->state.simple_pressure; 
 
+	// necrotic death rate 
+	static double base_necrosis_rate = get_cell_definition("A").phenotype.death.rates[nNecrosis];
+	phenotype.death.rates[nNecrosis] *= (1.0-R);
+
 	// cycle rate 
 	static double base_cycle_rate = get_cell_definition("A").phenotype.cycle.data.transition_rate(0,0); 
 	phenotype.cycle.data.transition_rate(0,1) = base_cycle_rate;
 	phenotype.cycle.data.transition_rate(0,1) *= R; 
-	if( p > 0.5 && parameters.bools( "A_cycle_pressure") == true )
+	if( p > parameters.doubles( "A_cycle_pressure_threshold") )
 	{ phenotype.cycle.data.transition_rate(0,1) = 0.0; }
 
 	double factor = 1.0; 
@@ -348,7 +356,6 @@ void A_phenotype( Cell* pCell, Phenotype& phenotype, double dt )
 	// apoptotic rate 
 
 
-	// necrotic death rate 
 
 
 	// speed 
