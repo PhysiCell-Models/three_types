@@ -305,6 +305,7 @@ void A_phenotype( Cell* pCell, Phenotype& phenotype, double dt )
 	// housekeeping 
 	static int nApoptosis = cell_defaults.phenotype.death.find_death_model_index( "apoptosis"); 
 	static int nNecrosis  = cell_defaults.phenotype.death.find_death_model_index( "necrosis"); 
+	Cell_Definition* pCD  = find_cell_definition("A");
 
 	// sample A, B, C, resource;
 	static int nA = microenvironment.find_density_index( "signal A" ); 
@@ -319,11 +320,11 @@ void A_phenotype( Cell* pCell, Phenotype& phenotype, double dt )
 	double p = pCell->state.simple_pressure; 
 
 	// necrotic death rate 
-	static double base_necrosis_rate = get_cell_definition("A").phenotype.death.rates[nNecrosis];
+	static double base_necrosis_rate = pCD->phenotype.death.rates[nNecrosis];
 	phenotype.death.rates[nNecrosis] *= (1.0-R);
 
 	// cycle rate 
-	static double base_cycle_rate = get_cell_definition("A").phenotype.cycle.data.transition_rate(0,0); 
+	static double base_cycle_rate = pCD->phenotype.cycle.data.transition_rate(0,0); 
 	phenotype.cycle.data.transition_rate(0,1) = base_cycle_rate;
 	phenotype.cycle.data.transition_rate(0,1) *= R; 
 	if( p > parameters.doubles( "A_cycle_pressure_threshold") )
@@ -355,10 +356,75 @@ void A_phenotype( Cell* pCell, Phenotype& phenotype, double dt )
 
 	// apoptotic rate 
 
+	double base_apoptosis_rate = pCD->phenotype.death.rates[nApoptosis]; 
+	phenotype.death.rates[nApoptosis] = base_apoptosis_rate; 
 
+	factor = 1.0; 
+	temp = parameters.strings("A_death_A" )[0]; 
+	if( temp == 'p' || temp == 'P' ) // promotes death 
+	{ factor *= A; }
+	if( temp == 'i' || temp == 'I' ) // inhibits death 
+	{ factor *= (1-A); }
+	phenotype.death.rates[nApoptosis] *= factor;
 
+	factor = 1.0; 
+	temp = parameters.strings("A_death_B" )[0]; 
+	if( temp == 'p' || temp == 'P' ) // promotes death 
+	{ factor *= B; }
+	if( temp == 'i' || temp == 'I' ) // inhibits death 
+	{ factor *= (1-B); }
+	phenotype.death.rates[nApoptosis] *= factor;
+
+	factor = 1.0; 
+	temp = parameters.strings("A_death_C" )[0]; 
+	if( temp == 'p' || temp == 'P' ) // promotes death 
+	{ factor *= C; }
+	if( temp == 'i' || temp == 'I' ) // inhibits death 
+	{ factor *= (1-C); }
+	phenotype.death.rates[nApoptosis] *= factor;
+
+	factor = 1.0; 
+	temp = parameters.strings("A_death_R" )[0]; 
+	if( temp == 'p' || temp == 'P' ) // promotes death 
+	{ factor *= R; }
+	if( temp == 'i' || temp == 'I' ) // inhibits death 
+	{ factor *= (1-R); }
+	phenotype.death.rates[nApoptosis] *= factor;
 
 	// speed 
+	phenotype.motility.migration_speed = pCD->phenotype.motility.migration_speed; 
 
+	factor = 1.0; 
+	temp = parameters.strings("A_speed_A" )[0]; 
+	if( temp == 'p' || temp == 'P' ) // promotes motility 
+	{ factor *= A; }
+	if( temp == 'i' || temp == 'I' ) // inhibits motility 
+	{ factor *= (1-A); }
+	phenotype.motility.migration_speed *= factor;
 
+	factor = 1.0; 
+	temp = parameters.strings("A_speed_B" )[0]; 
+	if( temp == 'p' || temp == 'P' ) // promotes motility 
+	{ factor *= B; }
+	if( temp == 'i' || temp == 'I' ) // inhibits motility 
+	{ factor *= (1-B); }
+	phenotype.motility.migration_speed *= factor;
+
+	factor = 1.0; 
+	temp = parameters.strings("A_speed_C" )[0]; 
+	if( temp == 'p' || temp == 'P' ) // promotes motility 
+	{ factor *= C; }
+	if( temp == 'i' || temp == 'I' ) // inhibits motility 
+	{ factor *= (1-C); }
+	phenotype.motility.migration_speed *= factor;
+
+	factor = 1.0; 
+	temp = parameters.strings("A_speed_R" )[0]; 
+	if( temp == 'p' || temp == 'P' ) // promotes motility 
+	{ factor *= R; }
+	if( temp == 'i' || temp == 'I' ) // inhibits motility 
+	{ factor *= (1-R); }
+	phenotype.motility.migration_speed *= factor;
+
+	return; 
 }
