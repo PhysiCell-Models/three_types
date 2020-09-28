@@ -158,60 +158,82 @@ void setup_tissue( void )
 	
 	Cell* pC;
 	
-	// place prey 
+	// place A
 	
-	for( int n = 0 ; n < parameters.ints("number_of_prey") ; n++ )
+	for( int n = 0 ; n < parameters.ints("number_of_A") ; n++ )
 	{
 		std::vector<double> position = {0,0,0}; 
 		position[0] = Xmin + UniformRandom()*Xrange; 
 		position[1] = Ymin + UniformRandom()*Yrange; 
 		position[2] = Zmin + UniformRandom()*Zrange; 
 		
-		pC = create_cell( get_cell_definition("prey") ); 
+		pC = create_cell( get_cell_definition("A") ); 
 		pC->assign_position( position );
 	}
 	
-	// place predators 
+	// place B
 	
-	for( int n = 0 ; n < parameters.ints("number_of_predators") ; n++ )
+	for( int n = 0 ; n < parameters.ints("number_of_B") ; n++ )
 	{
 		std::vector<double> position = {0,0,0}; 
 		position[0] = Xmin + UniformRandom()*Xrange; 
 		position[1] = Ymin + UniformRandom()*Yrange; 
 		position[2] = Zmin + UniformRandom()*Zrange; 
 		
-		pC = create_cell( get_cell_definition("predator") ); 
+		pC = create_cell( get_cell_definition("B") ); 
 		pC->assign_position( position );
-	}	
+	}
+
+	// place C
 	
+	for( int n = 0 ; n < parameters.ints("number_of_C") ; n++ )
+	{
+		std::vector<double> position = {0,0,0}; 
+		position[0] = Xmin + UniformRandom()*Xrange; 
+		position[1] = Ymin + UniformRandom()*Yrange; 
+		position[2] = Zmin + UniformRandom()*Zrange; 
+		
+		pC = create_cell( get_cell_definition("C") ); 
+		pC->assign_position( position );
+	}
+
 	return; 
 }
 
 std::vector<std::string> my_coloring_function( Cell* pCell )
 {
-	static int prey_type = get_cell_definition( "prey" ).type; 
-	static int predator_type = get_cell_definition( "predator" ).type; 
+	static int A_type = get_cell_definition( "A" ).type; 
+	static int B_type = get_cell_definition( "B" ).type; 
+	static int C_type = get_cell_definition( "C" ).type; 
 	
 	// start with flow cytometry coloring 
 	
-	std::vector<std::string> output = false_cell_coloring_cytometry(pCell); 
-	
-	// color live prey 
-		
-	if( pCell->phenotype.death.dead == false && pCell->type == prey_type )
-	{
-		 output[0] = parameters.strings("prey_color");  
-		 output[2] = parameters.strings("prey_color");  
-	}
-	
-	// color live predators 
+	std::vector<std::string> output = {"black" , "black" , "black" , "black"} ;
 
-	if( pCell->phenotype.death.dead == false && pCell->type == predator_type )
+	// color live C 
+		
+	if( pCell->phenotype.death.dead == false && pCell->type == A_type )
 	{
-		 output[0] = parameters.strings("predator_color");  
-		 output[2] = parameters.strings("predator_color");  
+		 output[0] = parameters.strings("A_color");  
+		 output[2] = parameters.strings("A_color");  
 	}
 	
+	// color live B
+
+	if( pCell->phenotype.death.dead == false && pCell->type == B_type )
+	{
+		 output[0] = parameters.strings("B_color");  
+		 output[2] = parameters.strings("B_color");  
+	}
+	
+	// color live C
+
+	if( pCell->phenotype.death.dead == false && pCell->type == C_type )
+	{
+		 output[0] = parameters.strings("C_color");  
+		 output[2] = parameters.strings("C_color");  
+	}
+
 	return output; 
 }
 

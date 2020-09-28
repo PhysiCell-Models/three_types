@@ -109,7 +109,7 @@
 		</full_data>
 		
 		<SVG>
-			<interval units="min">60</interval>
+			<interval units="min">30</interval>
 			<enable>true</enable>
 		</SVG>
 		
@@ -237,7 +237,7 @@
 					-->
 				</cycle>
 				
-				<death>  
+				<death>
 					<model code="100" name="apoptosis"> 
 						<death_rate units="1/min">5.31667e-05</death_rate>
 						<phase_durations units="min">
@@ -350,6 +350,183 @@
 			</custom_data>
 		</cell_definition>
 		
+	<cell_definitions>
+		<cell_definition name="A" ID="1" parent_type="default">
+			<phenotype>
+				<cycle code="5" name="live">
+					<phase_transition_rates units="1/min"> 
+						<rate start_index="0" end_index="0" fixed_duration="false">0.00072</rate>
+					</phase_transition_rates>					
+				</cycle>
+				<death>  
+					<model code="100" name="apoptosis"> 
+						<death_rate units="1/min">5.31667e-05</death_rate>
+					</model> 
+
+					<model code="101" name="necrosis">
+						<death_rate units="1/min">0.0</death_rate>
+					</model> 
+				</death>					
+				<volume>  
+				</volume> 				
+				<mechanics> 
+					<cell_cell_adhesion_strength units="micron/min">0.4</cell_cell_adhesion_strength>
+					<cell_cell_repulsion_strength units="micron/min">10.0</cell_cell_repulsion_strength>
+					<relative_maximum_adhesion_distance units="dimensionless">1.25</relative_maximum_adhesion_distance>
+					<options>
+						<set_relative_equilibrium_distance enabled="false" units="dimensionless">1.8</set_relative_equilibrium_distance>
+						<set_absolute_equilibrium_distance enabled="false" units="micron">15.12</set_absolute_equilibrium_distance>
+					</options>
+				</mechanics>
+				
+				<motility>  
+					<speed units="micron/min">1</speed>
+					<persistence_time units="min">1</persistence_time>
+					<migration_bias units="dimensionless">.5</migration_bias>
+					
+					<options>
+						<enabled>false</enabled>
+						<chemotaxis>
+							<enabled>false</enabled>
+							<substrate>resource</substrate>
+							<direction>1</direction>
+						</chemotaxis>
+					</options>
+				</motility>
+				
+				<secretion>
+					<substrate name="signal A">
+						<secretion_rate units="1/min">10</secretion_rate>
+					</substrate> 
+						
+					<substrate name="signal B">
+					</substrate> 	
+
+					<substrate name="signal C">
+					</substrate> 	
+				</secretion>
+
+				<molecular />
+			</phenotype>
+			<custom_data>  
+			</custom_data>
+		</cell_definition>
+
+	<cell_definitions>
+		<cell_definition name="B" ID="2" parent_type="default">
+			<phenotype>
+				<cycle code="5" name="live">
+					<phase_transition_rates units="1/min"> 
+						<rate start_index="0" end_index="0" fixed_duration="false">0.00072</rate>
+					</phase_transition_rates>					
+				</cycle>
+				<death>  
+					<model code="100" name="apoptosis"> 
+						<death_rate units="1/min">5.31667e-05</death_rate>
+					</model> 
+
+					<model code="101" name="necrosis">
+						<death_rate units="1/min">0.0</death_rate>
+					</model> 
+				</death>					
+				<volume>  
+				</volume> 				
+				<mechanics> 
+					<cell_cell_adhesion_strength units="micron/min">0.4</cell_cell_adhesion_strength>
+					<cell_cell_repulsion_strength units="micron/min">10.0</cell_cell_repulsion_strength>
+					<relative_maximum_adhesion_distance units="dimensionless">1.25</relative_maximum_adhesion_distance>
+					<options>
+						<set_relative_equilibrium_distance enabled="false" units="dimensionless">1.8</set_relative_equilibrium_distance>
+						<set_absolute_equilibrium_distance enabled="false" units="micron">15.12</set_absolute_equilibrium_distance>
+					</options>
+				</mechanics>
+				
+				<motility>  
+					<speed units="micron/min">1</speed>
+					<persistence_time units="min">1</persistence_time>
+					<migration_bias units="dimensionless">.5</migration_bias>
+					
+					<options>
+						<enabled>false</enabled>
+						<chemotaxis>
+							<enabled>false</enabled>
+							<substrate>resource</substrate>
+							<direction>1</direction>
+						</chemotaxis>
+					</options>
+				</motility>
+				
+				<secretion>
+					<substrate name="signal B">
+						<secretion_rate units="1/min">10</secretion_rate>
+					</substrate> 	
+				</secretion>
+
+				<molecular />
+			</phenotype>
+			<custom_data>  
+			</custom_data>
+		</cell_definition>
+
+	<cell_definitions>
+		<cell_definition name="C" ID="3" parent_type="default">
+			<phenotype>
+				<cycle code="5" name="live">
+					<phase_transition_rates units="1/min"> 
+						<rate start_index="0" end_index="0" fixed_duration="false">0.00072</rate>
+					</phase_transition_rates>					
+				</cycle>
+				<death>  
+					<model code="100" name="apoptosis"> 
+						<death_rate units="1/min">5.31667e-05</death_rate>
+					</model> 
+
+					<model code="101" name="necrosis">
+						<death_rate units="1/min">0.0</death_rate>
+					</model> 
+				</death>					
+				<volume>  
+				</volume> 				
+				<mechanics> 
+					<cell_cell_adhesion_strength units="micron/min">0.4</cell_cell_adhesion_strength>
+					<cell_cell_repulsion_strength units="micron/min">10.0</cell_cell_repulsion_strength>
+					<relative_maximum_adhesion_distance units="dimensionless">1.25</relative_maximum_adhesion_distance>
+					<options>
+						<set_relative_equilibrium_distance enabled="false" units="dimensionless">1.8</set_relative_equilibrium_distance>
+						<set_absolute_equilibrium_distance enabled="false" units="micron">15.12</set_absolute_equilibrium_distance>
+					</options>
+				</mechanics>
+				
+				<motility>  
+					<speed units="micron/min">1</speed>
+					<persistence_time units="min">1</persistence_time>
+					<migration_bias units="dimensionless">.5</migration_bias>
+					
+					<options>
+						<enabled>false</enabled>
+						<chemotaxis>
+							<enabled>false</enabled>
+							<substrate>resource</substrate>
+							<direction>1</direction>
+						</chemotaxis>
+					</options>
+				</motility>
+				
+				<secretion>
+					<substrate name="signal C">
+						<secretion_rate units="1/min">10</secretion_rate>
+					</substrate> 
+				</secretion>
+
+				<molecular />
+			</phenotype>
+			<custom_data>  
+			</custom_data>
+		</cell_definition>
+
+
+
+
 		
 	</cell_definitions>
 	
