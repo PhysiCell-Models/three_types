@@ -382,10 +382,10 @@
 					<migration_bias units="dimensionless">.5</migration_bias>
 					
 					<options>
-						<enabled>false</enabled>
+						<enabled>true</enabled>
 						<chemotaxis>
-							<enabled>false</enabled>
-							<substrate>resource</substrate>
+							<enabled>true</enabled>
+							<substrate>A</substrate>
 							<direction>1</direction>
 						</chemotaxis>
 					</options>
@@ -395,12 +395,6 @@
 					<substrate name="signal A">
 						<secretion_rate units="1/min">10</secretion_rate>
 					</substrate> 
-						
-					<substrate name="signal B">
-					</substrate> 	
-
-					<substrate name="signal C">
-					</substrate> 	
 				</secretion>
 
 				<molecular />
@@ -443,10 +437,10 @@
 					<migration_bias units="dimensionless">.5</migration_bias>
 					
 					<options>
-						<enabled>false</enabled>
+						<enabled>true</enabled>
 						<chemotaxis>
-							<enabled>false</enabled>
-							<substrate>resource</substrate>
+							<enabled>true</enabled>
+							<substrate>B</substrate>
 							<direction>1</direction>
 						</chemotaxis>
 					</options>
@@ -498,10 +492,10 @@
 					<migration_bias units="dimensionless">.5</migration_bias>
 					
 					<options>
-						<enabled>false</enabled>
+						<enabled>true</enabled>
 						<chemotaxis>
-							<enabled>false</enabled>
-							<substrate>resource</substrate>
+							<enabled>true</enabled>
+							<substrate>C</substrate>
 							<direction>1</direction>
 						</chemotaxis>
 					</options>
