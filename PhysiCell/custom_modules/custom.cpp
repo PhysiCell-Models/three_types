@@ -100,7 +100,8 @@ void create_cell_types( void )
 	   
 	   This is a good place to set custom functions. 
 	*/ 
-	
+
+/*	
 	if( parameters.bools("predators_eat_prey") == true )
 	{ get_cell_definition("predator").functions.custom_cell_rule = predator_hunting_function; }
 
@@ -109,6 +110,8 @@ void create_cell_types( void )
 
 	if( parameters.bools("prey_quorom_effect") == true )
 	{ get_cell_definition("prey").functions.update_phenotype = prey_cycling_function; }
+*/
+	A.functions.update_phenotype = A_phenotype; 
 		
 	/*
 	   This builds the map of cell definitions and summarizes the setup. 
@@ -295,4 +298,60 @@ void prey_cycling_function( Cell* pCell , Phenotype& phenotype, double dt )
 	phenotype.cycle.data.transition_rate(0,1) *= factor; 
 	
 	return; 
+}
+
+void A_phenotype( Cell* pCell, Phenotype& phenotype, double dt )
+{
+	// sample A, B, C, resource;
+	static int nA = microenvironment.find_density_index( "signal A" ); 
+	static int nB = microenvironment.find_density_index( "signal B" ); 
+	static int nC = microenvironment.find_density_index( "signal C" ); 
+	static int nR = microenvironment.find_density_index( "resource" ); 
+
+	double A = pCell->nearest_density_vector()[nA];
+	double B = pCell->nearest_density_vector()[nB];
+	double C = pCell->nearest_density_vector()[nC];
+	double R = pCell->nearest_density_vector()[nR];
+	double p = pCell->state.simple_pressure; 
+
+	// cycle rate 
+	static double base_cycle_rate = get_cell_definition("A").phenotype.cycle.data.transition_rate(0,0); 
+	phenotype.cycle.data.transition_rate(0,1) = base_cycle_rate;
+	phenotype.cycle.data.transition_rate(0,1) *= R; 
+	if( p > 0.5 && parameters.bools( "A_cycle_pressure") == true )
+	{ phenotype.cycle.data.transition_rate(0,1) = 0.0; }
+
+	double factor = 1.0; 
+	char temp = parameters.string("A_cycle_A" )[0]; 
+	if( temp == 'p' || temp == 'P' ) // promotes cycling 
+	{ factor *= A; }
+	if( temp == 'i' || temp == 'I' ) // inhibits cycling 
+	{ factor *= (1-A); }
+	phenotype.cycle.data.transition_rate(0,1) *= factor;
+
+	factor = 1.0; 
+	temp = parameters.string("A_cycle_B" )[0]; 
+	if( temp == 'p' || temp == 'P' ) // promotes cycling 
+	{ factor *= B; }
+	if( temp == 'i' || temp == 'I' ) // inhibits cycling 
+	{ factor *= (1-B); }
+	phenotype.cycle.data.transition_rate(0,1) *= factor;
+
+	factor = 1.0; 
+	temp = parameters.string("A_cycle_C" )[0]; 
+	if( temp == 'p' || temp == 'P' ) // promotes cycling 
+	{ factor *= C; }
+	if( temp == 'i' || temp == 'I' ) // inhibits cycling 
+	{ factor *= (1-C); }
+	phenotype.cycle.data.transition_rate(0,1) *= factor;
+
+	// apoptotic rate 
+
+
+	// necrotic death rate 
+
+
+	// speed 
+
+
 }
