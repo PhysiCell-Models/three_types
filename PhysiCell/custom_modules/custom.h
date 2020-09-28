@@ -86,6 +86,8 @@ std::vector<std::string> my_coloring_function( Cell* );
 // custom functions can go here 
 
 void A_phenotype( Cell* pCell, Phenotype& phenotype, double dt );
+void B_phenotype( Cell* pCell, Phenotype& phenotype, double dt );
+
 void A_motility( Cell* pCell, Phenotype& phenotype, double dt );
 
 

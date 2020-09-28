@@ -112,6 +112,7 @@ void create_cell_types( void )
 	{ get_cell_definition("prey").functions.update_phenotype = prey_cycling_function; }
 */
 	get_cell_definition("A").functions.update_phenotype = A_phenotype; 
+	get_cell_definition("B").functions.update_phenotype = B_phenotype; 
 		
 	/*
 	   This builds the map of cell definitions and summarizes the setup. 
@@ -420,6 +421,136 @@ void A_phenotype( Cell* pCell, Phenotype& phenotype, double dt )
 
 	factor = 1.0; 
 	temp = parameters.strings("A_speed_R" )[0]; 
+	if( temp == 'p' || temp == 'P' ) // promotes motility 
+	{ factor *= R; }
+	if( temp == 'i' || temp == 'I' ) // inhibits motility 
+	{ factor *= (1-R); }
+	phenotype.motility.migration_speed *= factor;
+
+	return; 
+}
+
+
+void B_phenotype( Cell* pCell, Phenotype& phenotype, double dt )
+{
+	// housekeeping 
+	static int nApoptosis = cell_defaults.phenotype.death.find_death_model_index( "apoptosis"); 
+	static int nNecrosis  = cell_defaults.phenotype.death.find_death_model_index( "necrosis"); 
+	Cell_Definition* pCD  = find_cell_definition("B");
+
+	// sample A, B, C, resource;
+	static int nA = microenvironment.find_density_index( "signal A" ); 
+	static int nB = microenvironment.find_density_index( "signal B" ); 
+	static int nC = microenvironment.find_density_index( "signal C" ); 
+	static int nR = microenvironment.find_density_index( "resource" ); 
+
+	double A = pCell->nearest_density_vector()[nA];
+	double B = pCell->nearest_density_vector()[nB];
+	double C = pCell->nearest_density_vector()[nC];
+	double R = pCell->nearest_density_vector()[nR];
+	double p = pCell->state.simple_pressure; 
+
+	// necrotic death rate 
+	static double base_necrosis_rate = pCD->phenotype.death.rates[nNecrosis];
+	phenotype.death.rates[nNecrosis] *= (1.0-R);
+
+	// cycle rate 
+	static double base_cycle_rate = pCD->phenotype.cycle.data.transition_rate(0,0); 
+	phenotype.cycle.data.transition_rate(0,1) = base_cycle_rate;
+	phenotype.cycle.data.transition_rate(0,1) *= R; 
+	if( p > parameters.doubles( "B_cycle_pressure_threshold") )
+	{ phenotype.cycle.data.transition_rate(0,1) = 0.0; }
+
+	double factor = 1.0; 
+	char temp = parameters.strings("B_cycle_A" )[0]; 
+	if( temp == 'p' || temp == 'P' ) // promotes cycling 
+	{ factor *= A; }
+	if( temp == 'i' || temp == 'I' ) // inhibits cycling 
+	{ factor *= (1-A); }
+	phenotype.cycle.data.transition_rate(0,1) *= factor;
+
+	factor = 1.0; 
+	temp = parameters.strings("B_cycle_B" )[0]; 
+	if( temp == 'p' || temp == 'P' ) // promotes cycling 
+	{ factor *= B; }
+	if( temp == 'i' || temp == 'I' ) // inhibits cycling 
+	{ factor *= (1-B); }
+	phenotype.cycle.data.transition_rate(0,1) *= factor;
+
+	factor = 1.0; 
+	temp = parameters.strings("B_cycle_C" )[0]; 
+	if( temp == 'p' || temp == 'P' ) // promotes cycling 
+	{ factor *= C; }
+	if( temp == 'i' || temp == 'I' ) // inhibits cycling 
+	{ factor *= (1-C); }
+	phenotype.cycle.data.transition_rate(0,1) *= factor;
+
+	// apoptotic rate 
+
+	double base_apoptosis_rate = pCD->phenotype.death.rates[nApoptosis]; 
+	phenotype.death.rates[nApoptosis] = base_apoptosis_rate; 
+
+	factor = 1.0; 
+	temp = parameters.strings("B_death_A" )[0]; 
+	if( temp == 'p' || temp == 'P' ) // promotes death 
+	{ factor *= A; }
+	if( temp == 'i' || temp == 'I' ) // inhibits death 
+	{ factor *= (1-A); }
+	phenotype.death.rates[nApoptosis] *= factor;
+
+	factor = 1.0; 
+	temp = parameters.strings("B_death_B" )[0]; 
+	if( temp == 'p' || temp == 'P' ) // promotes death 
+	{ factor *= B; }
+	if( temp == 'i' || temp == 'I' ) // inhibits death 
+	{ factor *= (1-B); }
+	phenotype.death.rates[nApoptosis] *= factor;
+
+	factor = 1.0; 
+	temp = parameters.strings("B_death_C" )[0]; 
+	if( temp == 'p' || temp == 'P' ) // promotes death 
+	{ factor *= C; }
+	if( temp == 'i' || temp == 'I' ) // inhibits death 
+	{ factor *= (1-C); }
+	phenotype.death.rates[nApoptosis] *= factor;
+
+	factor = 1.0; 
+	temp = parameters.strings("B_death_R" )[0]; 
+	if( temp == 'p' || temp == 'P' ) // promotes death 
+	{ factor *= R; }
+	if( temp == 'i' || temp == 'I' ) // inhibits death 
+	{ factor *= (1-R); }
+	phenotype.death.rates[nApoptosis] *= factor;
+
+	// speed 
+	phenotype.motility.migration_speed = pCD->phenotype.motility.migration_speed; 
+
+	factor = 1.0; 
+	temp = parameters.strings("B_speed_A" )[0]; 
+	if( temp == 'p' || temp == 'P' ) // promotes motility 
+	{ factor *= A; }
+	if( temp == 'i' || temp == 'I' ) // inhibits motility 
+	{ factor *= (1-A); }
+	phenotype.motility.migration_speed *= factor;
+
+	factor = 1.0; 
+	temp = parameters.strings("B_speed_B" )[0]; 
+	if( temp == 'p' || temp == 'P' ) // promotes motility 
+	{ factor *= B; }
+	if( temp == 'i' || temp == 'I' ) // inhibits motility 
+	{ factor *= (1-B); }
+	phenotype.motility.migration_speed *= factor;
+
+	factor = 1.0; 
+	temp = parameters.strings("B_speed_C" )[0]; 
+	if( temp == 'p' || temp == 'P' ) // promotes motility 
+	{ factor *= C; }
+	if( temp == 'i' || temp == 'I' ) // inhibits motility 
+	{ factor *= (1-C); }
+	phenotype.motility.migration_speed *= factor;
+
+	factor = 1.0; 
+	temp = parameters.strings("B_speed_R" )[0]; 
 	if( temp == 'p' || temp == 'P' ) // promotes motility 
 	{ factor *= R; }
 	if( temp == 'i' || temp == 'I' ) // inhibits motility 

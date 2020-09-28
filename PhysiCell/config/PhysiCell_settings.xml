@@ -393,7 +393,7 @@
 				
 				<secretion>
 					<substrate name="signal A">
-						<secretion_rate units="1/min">10</secretion_rate>
+						<secretion_rate units="1/min">100</secretion_rate>
 					</substrate> 
 				</secretion>
 
@@ -448,7 +448,7 @@
 				
 				<secretion>
 					<substrate name="signal B">
-						<secretion_rate units="1/min">10</secretion_rate>
+						<secretion_rate units="1/min">100</secretion_rate>
 					</substrate> 	
 				</secretion>
 
@@ -503,7 +503,7 @@
 				
 				<secretion>
 					<substrate name="signal C">
-						<secretion_rate units="1/min">10</secretion_rate>
+						<secretion_rate units="1/min">100</secretion_rate>
 					</substrate> 
 				</secretion>
 
@@ -523,8 +523,8 @@
 		
 		<div_initialization type="divider" description="---Initialization settings---"/>
 		
-		<number_of_A type="int" units="none" description="initial number of A">50</number_of_A>
-		<number_of_B type="int" units="none" description="initial number of B">0</number_of_B>
+		<number_of_A type="int" units="none" description="initial number of A">25</number_of_A>
+		<number_of_B type="int" units="none" description="initial number of B">25</number_of_B>
 		<number_of_C type="int" units="none" description="initial number of C">0</number_of_C>
 		
 		<div_coloring type="divider" description="---Coloring settings---"/>
@@ -548,6 +548,25 @@
 		<A_speed_B type="string" description="impact of signal B on A motility (promote, inihbit, or neutral">neutral</A_speed_B>
 		<A_speed_C type="string" description="impact of signal C on A motility (promote, inihbit, or neutral">neutral</A_speed_C>
 		<A_speed_R type="string" description="impact of resource on A motility (promote, inihbit, or neutral">neutral</A_speed_R>
+
+		<div_predator type="divider" description="---cell type B settings---"/>
+		<B_cycle_A type="string" description="impact of signal A on B cycling (promote, inhibit, or neutral)">neutral</B_cycle_A>
+		<B_cycle_B type="string" description="impact of signal B on B cycling (promote, inhibit, or neutral)">neutral</B_cycle_B>
+		<B_cycle_C type="string" description="impact of signal C on B cycling (promote, inhibit, or neutral)">neutral</B_cycle_C>
+		<B_cycle_pressure_threshold type="double" description="pressure > threshold inhibits B cycling">5.0</B_cycle_pressure_threshold>
+
+		<B_death_A type="string" description="impact of signal A on B apoptosis (promote, inihbit, or neutral">neutral</B_death_A>
+		<B_death_B type="string" description="impact of signal B on B apoptosis (promote, inihbit, or neutral">neutral</B_death_B>
+		<B_death_C type="string" description="impact of signal C on B apoptosis (promote, inihbit, or neutral">neutral</B_death_C>
+		<B_death_R type="string" description="impact of resource on B apoptosis (promote, inihbit, or neutral">neutral</B_death_R>
+
+		<B_speed_A type="string" description="impact of signal A on B motility (promote, inihbit, or neutral">inhibit</B_speed_A>
+		<B_speed_B type="string" description="impact of signal B on B motility (promote, inihbit, or neutral">neutral</B_speed_B>
+		<B_speed_C type="string" description="impact of signal C on B motility (promote, inihbit, or neutral">neutral</B_speed_C>
+		<B_speed_R type="string" description="impact of resource on B motility (promote, inihbit, or neutral">neutral</B_speed_R>
+
+
+
 
 		<predators_eat_prey type="bool" description="set to true if predators can eat prey">true</predators_eat_prey>
 		<predators_cycle_if_big type="bool" description="set to true if predators should cycle if they are well-fed (and thus big)">true</predators_cycle_if_big>
