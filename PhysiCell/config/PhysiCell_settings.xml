@@ -162,8 +162,6 @@
 			</Dirichlet_options>
 -->
  		</variable>
-
-		</variable>
 		
 		<variable name="signal B" units="none" ID="2">
 			<physical_parameter_set>
@@ -350,7 +348,6 @@
 			</custom_data>
 		</cell_definition>
 		
-	<cell_definitions>
 		<cell_definition name="A" ID="1" parent_type="default">
 			<phenotype>
 				<cycle code="5" name="live">
@@ -412,7 +409,6 @@
 			</custom_data>
 		</cell_definition>
 
-	<cell_definitions>
 		<cell_definition name="B" ID="2" parent_type="default">
 			<phenotype>
 				<cycle code="5" name="live">
@@ -468,7 +464,6 @@
 			</custom_data>
 		</cell_definition>
 
-	<cell_definitions>
 		<cell_definition name="C" ID="3" parent_type="default">
 			<phenotype>
 				<cycle code="5" name="live">
@@ -523,10 +518,6 @@
 			<custom_data>  
 			</custom_data>
 		</cell_definition>
-
-
-
-
 		
 	</cell_definitions>
 	
@@ -548,12 +539,12 @@
 		<B_color type="string" description="color for B cells">orange</B_color>
 		<C_color type="string" description="color for C cells">red</C_color>
 		
-		<div_predator type="divider" description="---Predator settings---"/>
+		<div_predator type="divider" description="---cell type A settings---"/>
 
 		<predators_eat_prey type="bool" description="set to true if predators can eat prey">true</predators_eat_prey>
 		<predators_cycle_if_big type="bool" description="set to true if predators should cycle if they are well-fed (and thus big)">true</predators_cycle_if_big>
 		
-		<div_prey type="divider" description="---Prey settings---"/>
+		<div_prey type="divider" description="---cell type B settings---"/>
 		<prey_quorom_effect type="bool" description="set to true if prey signal down-regulates cycling">true</prey_quorom_effect>
 		<prey_quorom_threshold type="double" description="prey signal > threshold completely arrests cycling">0.2</prey_quorom_threshold>
 		
