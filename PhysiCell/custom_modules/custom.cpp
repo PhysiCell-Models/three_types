@@ -303,10 +303,20 @@ void prey_cycling_function( Cell* pCell , Phenotype& phenotype, double dt )
 
 void A_phenotype( Cell* pCell, Phenotype& phenotype, double dt )
 {
+	if( phenotype.death.dead == true )
+	{
+		phenotype.secretion.set_all_secretion_to_zero(); 
+		phenotype.secretion.set_all_uptake_to_zero(); 
+		phenotype.motility.is_motile = false; 
+
+		pCell->functions.update_phenotype = NULL; 
+		return; 
+	}
+	
 	// housekeeping 
 	static int nApoptosis = cell_defaults.phenotype.death.find_death_model_index( "apoptosis"); 
 	static int nNecrosis  = cell_defaults.phenotype.death.find_death_model_index( "necrosis"); 
-	Cell_Definition* pCD  = find_cell_definition("A");
+	static Cell_Definition* pCD  = find_cell_definition("A");
 
 	// sample A, B, C, resource;
 	static int nA = microenvironment.find_density_index( "signal A" ); 
@@ -433,10 +443,20 @@ void A_phenotype( Cell* pCell, Phenotype& phenotype, double dt )
 
 void B_phenotype( Cell* pCell, Phenotype& phenotype, double dt )
 {
+	if( phenotype.death.dead == true )
+	{
+		phenotype.secretion.set_all_secretion_to_zero(); 
+		phenotype.secretion.set_all_uptake_to_zero(); 
+		phenotype.motility.is_motile = false; 
+
+		pCell->functions.update_phenotype = NULL; 
+		return; 
+	}
+	
 	// housekeeping 
 	static int nApoptosis = cell_defaults.phenotype.death.find_death_model_index( "apoptosis"); 
 	static int nNecrosis  = cell_defaults.phenotype.death.find_death_model_index( "necrosis"); 
-	Cell_Definition* pCD  = find_cell_definition("B");
+	static Cell_Definition* pCD  = find_cell_definition("B");
 
 	// sample A, B, C, resource;
 	static int nA = microenvironment.find_density_index( "signal A" ); 

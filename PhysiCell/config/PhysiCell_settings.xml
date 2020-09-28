@@ -104,12 +104,12 @@
 		<folder>output</folder> <!-- use . for root --> 
 
 		<full_data>
-			<interval units="min">360</interval>
+			<interval units="min">60</interval>
 			<enable>true</enable>
 		</full_data>
 		
 		<SVG>
-			<interval units="min">30</interval>
+			<interval units="min">20</interval>
 			<enable>true</enable>
 		</SVG>
 		
@@ -385,7 +385,7 @@
 						<enabled>true</enabled>
 						<chemotaxis>
 							<enabled>true</enabled>
-							<substrate>signal A</substrate>
+							<substrate>signal B</substrate>
 							<direction>1</direction>
 						</chemotaxis>
 					</options>
@@ -440,7 +440,7 @@
 						<enabled>true</enabled>
 						<chemotaxis>
 							<enabled>true</enabled>
-							<substrate>signal B</substrate>
+							<substrate>signal A</substrate>
 							<direction>1</direction>
 						</chemotaxis>
 					</options>
@@ -523,8 +523,8 @@
 		
 		<div_initialization type="divider" description="---Initialization settings---"/>
 		
-		<number_of_A type="int" units="none" description="initial number of A">25</number_of_A>
-		<number_of_B type="int" units="none" description="initial number of B">25</number_of_B>
+		<number_of_A type="int" units="none" description="initial number of A">1</number_of_A>
+		<number_of_B type="int" units="none" description="initial number of B">1</number_of_B>
 		<number_of_C type="int" units="none" description="initial number of C">0</number_of_C>
 		
 		<div_coloring type="divider" description="---Coloring settings---"/>
@@ -534,33 +534,33 @@
 		<C_color type="string" description="color for C cells">red</C_color>
 		
 		<div_predator type="divider" description="---cell type A settings---"/>
-		<A_cycle_A type="string" description="impact of signal A on A cycling (promote, inhibit, or neutral)">neutral</A_cycle_A>
+		<A_cycle_A type="string" description="impact of signal A on A cycling (promote, inhibit, or neutral)">inhibit</A_cycle_A>
 		<A_cycle_B type="string" description="impact of signal B on A cycling (promote, inhibit, or neutral)">neutral</A_cycle_B>
 		<A_cycle_C type="string" description="impact of signal C on A cycling (promote, inhibit, or neutral)">neutral</A_cycle_C>
-		<A_cycle_pressure_threshold type="double" description="pressure > threshold inhibits A cycling">5.0</A_cycle_pressure_threshold>
+		<A_cycle_pressure_threshold type="double" description="pressure > threshold inhibits A cycling">5000.0</A_cycle_pressure_threshold>
 
 		<A_death_A type="string" description="impact of signal A on A apoptosis (promote, inihbit, or neutral">neutral</A_death_A>
-		<A_death_B type="string" description="impact of signal B on A apoptosis (promote, inihbit, or neutral">neutral</A_death_B>
+		<A_death_B type="string" description="impact of signal B on A apoptosis (promote, inihbit, or neutral">promote</A_death_B>
 		<A_death_C type="string" description="impact of signal C on A apoptosis (promote, inihbit, or neutral">neutral</A_death_C>
 		<A_death_R type="string" description="impact of resource on A apoptosis (promote, inihbit, or neutral">neutral</A_death_R>
 
-		<A_speed_A type="string" description="impact of signal A on A motility (promote, inihbit, or neutral">inhibit</A_speed_A>
+		<A_speed_A type="string" description="impact of signal A on A motility (promote, inihbit, or neutral">neutral</A_speed_A>
 		<A_speed_B type="string" description="impact of signal B on A motility (promote, inihbit, or neutral">neutral</A_speed_B>
 		<A_speed_C type="string" description="impact of signal C on A motility (promote, inihbit, or neutral">neutral</A_speed_C>
 		<A_speed_R type="string" description="impact of resource on A motility (promote, inihbit, or neutral">neutral</A_speed_R>
 
 		<div_predator type="divider" description="---cell type B settings---"/>
 		<B_cycle_A type="string" description="impact of signal A on B cycling (promote, inhibit, or neutral)">neutral</B_cycle_A>
-		<B_cycle_B type="string" description="impact of signal B on B cycling (promote, inhibit, or neutral)">neutral</B_cycle_B>
+		<B_cycle_B type="string" description="impact of signal B on B cycling (promote, inhibit, or neutral)">inhibit</B_cycle_B>
 		<B_cycle_C type="string" description="impact of signal C on B cycling (promote, inhibit, or neutral)">neutral</B_cycle_C>
-		<B_cycle_pressure_threshold type="double" description="pressure > threshold inhibits B cycling">5.0</B_cycle_pressure_threshold>
+		<B_cycle_pressure_threshold type="double" description="pressure > threshold inhibits B cycling">5000.0</B_cycle_pressure_threshold>
 
-		<B_death_A type="string" description="impact of signal A on B apoptosis (promote, inihbit, or neutral">neutral</B_death_A>
+		<B_death_A type="string" description="impact of signal A on B apoptosis (promote, inihbit, or neutral">promote</B_death_A>
 		<B_death_B type="string" description="impact of signal B on B apoptosis (promote, inihbit, or neutral">neutral</B_death_B>
 		<B_death_C type="string" description="impact of signal C on B apoptosis (promote, inihbit, or neutral">neutral</B_death_C>
 		<B_death_R type="string" description="impact of resource on B apoptosis (promote, inihbit, or neutral">neutral</B_death_R>
 
-		<B_speed_A type="string" description="impact of signal A on B motility (promote, inihbit, or neutral">inhibit</B_speed_A>
+		<B_speed_A type="string" description="impact of signal A on B motility (promote, inihbit, or neutral">neutral</B_speed_A>
 		<B_speed_B type="string" description="impact of signal B on B motility (promote, inihbit, or neutral">neutral</B_speed_B>
 		<B_speed_C type="string" description="impact of signal C on B motility (promote, inihbit, or neutral">neutral</B_speed_C>
 		<B_speed_R type="string" description="impact of resource on B motility (promote, inihbit, or neutral">neutral</B_speed_R>
