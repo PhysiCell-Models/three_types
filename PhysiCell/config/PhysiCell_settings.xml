@@ -126,7 +126,7 @@
 		<variable name="resource" units="none" ID="0">
 			<physical_parameter_set>
 				<diffusion_coefficient units="micron^2/min">100000.0</diffusion_coefficient>
-				<decay_rate units="1/min">10</decay_rate>  
+				<decay_rate units="1/min">0.1</decay_rate>  
 			</physical_parameter_set>
 			<initial_condition units="none">1</initial_condition>
 			<Dirichlet_boundary_condition units="none" enabled="true">1</Dirichlet_boundary_condition>
@@ -385,7 +385,7 @@
 						<enabled>true</enabled>
 						<chemotaxis>
 							<enabled>true</enabled>
-							<substrate>A</substrate>
+							<substrate>signal A</substrate>
 							<direction>1</direction>
 						</chemotaxis>
 					</options>
@@ -440,7 +440,7 @@
 						<enabled>true</enabled>
 						<chemotaxis>
 							<enabled>true</enabled>
-							<substrate>B</substrate>
+							<substrate>signal B</substrate>
 							<direction>1</direction>
 						</chemotaxis>
 					</options>
@@ -495,7 +495,7 @@
 						<enabled>true</enabled>
 						<chemotaxis>
 							<enabled>true</enabled>
-							<substrate>C</substrate>
+							<substrate>signal C</substrate>
 							<direction>1</direction>
 						</chemotaxis>
 					</options>
