@@ -111,7 +111,7 @@ void create_cell_types( void )
 	if( parameters.bools("prey_quorom_effect") == true )
 	{ get_cell_definition("prey").functions.update_phenotype = prey_cycling_function; }
 */
-	A.functions.update_phenotype = A_phenotype; 
+	get_cell_definition("A").functions.update_phenotype = A_phenotype; 
 		
 	/*
 	   This builds the map of cell definitions and summarizes the setup. 
@@ -322,7 +322,7 @@ void A_phenotype( Cell* pCell, Phenotype& phenotype, double dt )
 	{ phenotype.cycle.data.transition_rate(0,1) = 0.0; }
 
 	double factor = 1.0; 
-	char temp = parameters.string("A_cycle_A" )[0]; 
+	char temp = parameters.strings("A_cycle_A" )[0]; 
 	if( temp == 'p' || temp == 'P' ) // promotes cycling 
 	{ factor *= A; }
 	if( temp == 'i' || temp == 'I' ) // inhibits cycling 
@@ -330,7 +330,7 @@ void A_phenotype( Cell* pCell, Phenotype& phenotype, double dt )
 	phenotype.cycle.data.transition_rate(0,1) *= factor;
 
 	factor = 1.0; 
-	temp = parameters.string("A_cycle_B" )[0]; 
+	temp = parameters.strings("A_cycle_B" )[0]; 
 	if( temp == 'p' || temp == 'P' ) // promotes cycling 
 	{ factor *= B; }
 	if( temp == 'i' || temp == 'I' ) // inhibits cycling 
@@ -338,7 +338,7 @@ void A_phenotype( Cell* pCell, Phenotype& phenotype, double dt )
 	phenotype.cycle.data.transition_rate(0,1) *= factor;
 
 	factor = 1.0; 
-	temp = parameters.string("A_cycle_C" )[0]; 
+	temp = parameters.strings("A_cycle_C" )[0]; 
 	if( temp == 'p' || temp == 'P' ) // promotes cycling 
 	{ factor *= C; }
 	if( temp == 'i' || temp == 'I' ) // inhibits cycling 
