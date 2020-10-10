@@ -292,7 +292,228 @@ void prey_cycling_function( Cell* pCell , Phenotype& phenotype, double dt )
 	return; 
 }
 
+/*
+up_down_signal add_effect( up_down_signal start_signal , double factor, char factor_type )
+{
+	up_down_signal out = start_signal; 
+	// neutral signal 
+	if( factor_type == 'N' || factor_type == 'n' )
+	{ return out; }
+
+	// promoter signal 
+	if( factor_type == 'P' || factor_type == 'p' )
+	{
+		// up = sum of all (scaled) promoter signals 
+		out.up += factor; 
+		// cap up signal at 1.0 
+		if( out.up > 1.0 )
+		{ out.up = 1.0; }
+		return out; 
+	}
+
+	// inhibitor signal 
+	// down is max of all (scaled) inhibitor signals 
+	if( factor > out.down )
+	{ out.down = factor; }
+	if( out.down > 1 )
+	{ out.down = 1.0; }
+	return out; 
+}
+*/
+
+up_down_signal::up_down_signal()
+{
+    up = 0.0;
+	down = 0.0; 
+    no_promoters = true; 
+    no_inhibitors = true; 
+	return; 
+} 
+
+void up_down_signal::add_effect( double factor, char factor_type )
+{
+	// neutral signal 
+	if( factor_type == 'N' || factor_type == 'n' )
+	{ return; }
+
+	// promoter signal 
+	if( factor_type == 'P' || factor_type == 'p' )
+	{
+		// up = sum of all (scaled) promoter signals 
+		up += factor; 
+		// cap up signal at 1.0 
+		if( up > 1.0 )
+		{ up = 1.0; }
+		no_promoters = false; 
+		return; 
+	}
+
+	// inhibitor signal 
+	if( factor_type == 'I' || factor_type == 'i' )
+	{
+		if( factor > down )
+		{ down = factor; }
+		if( down > 1 )
+		{ down = 1.0; }
+		no_inhibitors = false; 
+		return; 
+	}
+
+	return; 
+}
+
+void up_down_signal::add_effect( double factor, std::string factor_type )
+{
+	this->add_effect( factor, factor_type[0] ); 
+	return; 
+}
+
+double up_down_signal::compute_effect( void )
+{
+	double UP = up;
+	if( no_promoters )
+	{ UP = 1.0; }
+	return UP * (1.0 - down ); 
+}
+
+void up_down_signal::reset( void )
+{ 
+	up = 0.0;
+	down = 0.0; 
+	no_promoters = true; 
+	no_inhibitors = true; 
+	return; 
+}
+
+void up_down_signal::display( void )
+{
+	std::cout << "up    : " << up <<   " (no promoters : " << (int) no_promoters << ")" << std::endl;
+	std::cout << "down  : " << down << " (no inhibiters: " << (int) no_inhibitors << ")" << std::endl;
+
+	std::cout << "effect: " << compute_effect() << std::endl; 
+
+	std::cout << std::endl; 
+	return; 
+}
+
+
+
 void A_phenotype( Cell* pCell, Phenotype& phenotype, double dt )
+{
+	if( phenotype.death.dead == true )
+	{
+		std::cout << phenotype.death.rates << std::endl; 
+
+		phenotype.secretion.set_all_secretion_to_zero(); 
+		phenotype.secretion.set_all_uptake_to_zero(); 
+		phenotype.motility.is_motile = false; 
+
+		pCell->functions.update_phenotype = NULL; 
+		// return; 
+	}
+	
+	// housekeeping 
+	static int nApoptosis = cell_defaults.phenotype.death.find_death_model_index( "apoptosis"); 
+	static int nNecrosis  = cell_defaults.phenotype.death.find_death_model_index( "necrosis"); 
+	static Cell_Definition* pCD  = find_cell_definition("A");
+
+
+	if( phenotype.death.dead == true )
+	{
+		std::cout << phenotype.death.rates[nApoptosis] << std::endl; 
+		std::cout << phenotype.death.rates[nNecrosis] << std::endl; 
+		return; 
+	}
+
+	// sample A, B, C, resource;
+	static int nA = microenvironment.find_density_index( "signal A" ); 
+	static int nB = microenvironment.find_density_index( "signal B" ); 
+	static int nC = microenvironment.find_density_index( "signal C" ); 
+	static int nR = microenvironment.find_density_index( "resource" ); 
+
+	double A = pCell->nearest_density_vector()[nA];
+	double B = pCell->nearest_density_vector()[nB];
+	double C = pCell->nearest_density_vector()[nC];
+	double R = pCell->nearest_density_vector()[nR];
+	double p = pCell->state.simple_pressure; 
+
+	// necrotic death rate 
+	static double base_necrosis_rate = pCD->phenotype.death.rates[nNecrosis];
+	static double necrosis_threshold = parameters.doubles("A_necrosis_threshold");
+	phenotype.death.rates[nNecrosis] = 0.0;
+	if( R < necrosis_threshold )
+	{
+		phenotype.death.rates[nNecrosis] = base_necrosis_rate; 
+		phenotype.death.rates[nNecrosis] *= (necrosis_threshold - R ) / necrosis_threshold; 
+	}
+	phenotype.death.rates[nNecrosis] = 0.0; 
+	std::cout << R << " : " << necrosis_threshold << " : " << phenotype.death.rates[nNecrosis] << std::endl; 
+
+	// cycle rate 
+	static double base_cycle_rate = pCD->phenotype.cycle.data.transition_rate(0,0); 
+	phenotype.cycle.data.transition_rate(0,1) = base_cycle_rate;
+	phenotype.cycle.data.transition_rate(0,1) *= R; 
+	if( p > parameters.doubles( "A_cycle_pressure_threshold") )
+	{ phenotype.cycle.data.transition_rate(0,1) = 0.0; }
+
+	up_down_signal sig; 
+
+	// A 
+	sig.add_effect( A , parameters.strings("A_cycle_A") );
+	// B
+	sig.add_effect( B , parameters.strings("A_cycle_B") );
+	// C 
+	sig.add_effect( C , parameters.strings("A_cycle_C") );
+	
+	phenotype.cycle.data.transition_rate(0,1) *= sig.compute_effect(); 
+
+	// apoptotic rate 
+
+	double base_apoptosis_rate = pCD->phenotype.death.rates[nApoptosis]; 
+	phenotype.death.rates[nApoptosis] = base_apoptosis_rate; 
+
+	sig.reset();
+
+	// A 
+	sig.add_effect( A , parameters.strings("A_death_A") );
+	// B
+	sig.add_effect( B , parameters.strings("A_death_B") );
+	// C 
+	sig.add_effect( C , parameters.strings("A_death_C") );	
+	// R 
+	sig.add_effect( C , parameters.strings("A_death_R") );	
+	
+	phenotype.death.rates[nApoptosis] *= sig.compute_effect(); 
+	if( p > parameters.doubles("A_apoptosis_pressure_threshold") )
+	{
+		phenotype.death.rates[nApoptosis] = 10; 
+		std::cout << p << " : " << parameters.doubles("A_apoptosis_pressure_threshold") << std::endl; 
+	}
+
+	// speed 
+	phenotype.motility.migration_speed = pCD->phenotype.motility.migration_speed; 
+
+	sig.reset(); 
+
+	// A 
+	sig.add_effect( A , parameters.strings("A_speed_A") );
+	// B
+	sig.add_effect( B , parameters.strings("A_speed_B") );
+	// C 
+	sig.add_effect( C , parameters.strings("A_speed_C") );	
+	// R 
+	sig.add_effect( C , parameters.strings("A_speed_R") );	
+
+	phenotype.motility.migration_speed *= sig.compute_effect();
+
+		std::cout << phenotype.death.rates[nApoptosis] << std::endl; 
+		std::cout << phenotype.death.rates[nNecrosis] << std::endl << std::endl; 
+
+
+	return; 
+}
+
+void A_phenotype_old( Cell* pCell, Phenotype& phenotype, double dt )
 {
 	if( phenotype.death.dead == true )
 	{
@@ -352,7 +573,7 @@ void A_phenotype( Cell* pCell, Phenotype& phenotype, double dt )
 
 	double factor = 1.0; 
 	char temp = parameters.strings("A_cycle_A" )[0]; 
-	if( temp == 'p' || temp == 'P' ) // promotes cycling 
+	if( temp == 'p' || temp == 'P' ) // promotes cyc ling 
 	{ factor *= A; }
 	if( temp == 'i' || temp == 'I' ) // inhibits cycling 
 	{ factor *= (1-A); }
@@ -457,6 +678,11 @@ void A_phenotype( Cell* pCell, Phenotype& phenotype, double dt )
 
 	return; 
 }
+
+
+
+
+
 
 
 void B_phenotype( Cell* pCell, Phenotype& phenotype, double dt )

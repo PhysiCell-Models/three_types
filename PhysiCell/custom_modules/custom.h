@@ -71,6 +71,9 @@
 using namespace BioFVM; 
 using namespace PhysiCell;
 
+#ifndef __custom_h__
+#define __custom_h__
+
 // setup functions to help us along 
 
 void create_cell_types( void );
@@ -82,6 +85,28 @@ void setup_microenvironment( void );
 // custom pathology coloring function 
 
 std::vector<std::string> my_coloring_function( Cell* );
+
+//
+
+class up_down_signal
+{
+ public: 
+	double up; 
+	double down; 
+    bool no_promoters;
+    bool no_inhibitors; 
+
+    up_down_signal(); 
+    void add_effect( double factor, char factor_type );
+    void add_effect( double factor, std::string factor_type );
+
+    void display( void );
+    double compute_effect( void ); 
+    void reset( void ); 
+};
+
+// up_down_signal add_effect( up_down_signal& start_signal , double factor, char factor_type );
+// up_down_signal process_flags( up_down_signal& start_signal ); 
 
 // custom functions can go here 
 
@@ -100,3 +125,5 @@ void predator_hunting_function( Cell* pCell, Phenotype& phenotype, double dt );
 void predator_cycling_function( Cell* pCell, Phenotype& phenotype, double dt ); 
 
 void prey_cycling_function( Cell* pCell , Phenotype& phenotype, double dt ); 
+
+#endif 
