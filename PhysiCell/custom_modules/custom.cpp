@@ -296,18 +296,28 @@ void A_phenotype( Cell* pCell, Phenotype& phenotype, double dt )
 {
 	if( phenotype.death.dead == true )
 	{
+		std::cout << phenotype.death.rates << std::endl; 
+
 		phenotype.secretion.set_all_secretion_to_zero(); 
 		phenotype.secretion.set_all_uptake_to_zero(); 
 		phenotype.motility.is_motile = false; 
 
 		pCell->functions.update_phenotype = NULL; 
-		return; 
+		// return; 
 	}
 	
 	// housekeeping 
 	static int nApoptosis = cell_defaults.phenotype.death.find_death_model_index( "apoptosis"); 
 	static int nNecrosis  = cell_defaults.phenotype.death.find_death_model_index( "necrosis"); 
 	static Cell_Definition* pCD  = find_cell_definition("A");
+
+
+	if( phenotype.death.dead == true )
+	{
+		std::cout << phenotype.death.rates[nApoptosis] << std::endl; 
+		std::cout << phenotype.death.rates[nNecrosis] << std::endl; 
+		return; 
+	}
 
 	// sample A, B, C, resource;
 	static int nA = microenvironment.find_density_index( "signal A" ); 
@@ -323,7 +333,15 @@ void A_phenotype( Cell* pCell, Phenotype& phenotype, double dt )
 
 	// necrotic death rate 
 	static double base_necrosis_rate = pCD->phenotype.death.rates[nNecrosis];
-	phenotype.death.rates[nNecrosis] *= (1.0-R);
+	static double necrosis_threshold = parameters.doubles("A_necrosis_threshold");
+	phenotype.death.rates[nNecrosis] = 0.0;
+	if( R < necrosis_threshold )
+	{
+		phenotype.death.rates[nNecrosis] = base_necrosis_rate; 
+		phenotype.death.rates[nNecrosis] *= (necrosis_threshold - R ) / necrosis_threshold; 
+	}
+	phenotype.death.rates[nNecrosis] = 0.0; 
+	std::cout << R << " : " << necrosis_threshold << " : " << phenotype.death.rates[nNecrosis] << std::endl; 
 
 	// cycle rate 
 	static double base_cycle_rate = pCD->phenotype.cycle.data.transition_rate(0,0); 
@@ -393,6 +411,11 @@ void A_phenotype( Cell* pCell, Phenotype& phenotype, double dt )
 	{ factor *= (1-R); }
 	phenotype.death.rates[nApoptosis] *= factor;
 
+	phenotype.death.rates[nApoptosis] = 0; 
+
+	if( p > parameters.doubles("A_apoptosis_pressure_threshold") )
+	{ phenotype.death.rates[nApoptosis] = 10; std::cout << p << " : " << parameters.doubles("A_apoptosis_pressure_threshold") << std::endl; }
+
 	// speed 
 	phenotype.motility.migration_speed = pCD->phenotype.motility.migration_speed; 
 
@@ -427,6 +450,10 @@ void A_phenotype( Cell* pCell, Phenotype& phenotype, double dt )
 	if( temp == 'i' || temp == 'I' ) // inhibits motility 
 	{ factor *= (1-R); }
 	phenotype.motility.migration_speed *= factor;
+
+		std::cout << phenotype.death.rates[nApoptosis] << std::endl; 
+		std::cout << phenotype.death.rates[nNecrosis] << std::endl << std::endl; 
+
 
 	return; 
 }
