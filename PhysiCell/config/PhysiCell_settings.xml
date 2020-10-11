@@ -385,7 +385,7 @@
 						<enabled>true</enabled>
 						<chemotaxis>
 							<enabled>true</enabled>
-							<substrate>signal B</substrate>
+							<substrate>signal A</substrate>
 							<direction>1</direction>
 						</chemotaxis>
 					</options>
@@ -523,7 +523,7 @@
 		
 		<div_initialization type="divider" description="---Initialization settings---"/>
 		
-		<number_of_A type="int" units="none" description="initial number of A">1</number_of_A>
+		<number_of_A type="int" units="none" description="initial number of A">10</number_of_A>
 		<number_of_B type="int" units="none" description="initial number of B">0</number_of_B>
 		<number_of_C type="int" units="none" description="initial number of C">0</number_of_C>
 		

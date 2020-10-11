@@ -446,7 +446,7 @@ void A_phenotype( Cell* pCell, Phenotype& phenotype, double dt )
 		phenotype.death.rates[nNecrosis] = base_necrosis_rate; 
 		phenotype.death.rates[nNecrosis] *= (1.0 - R / necrosis_threshold); 
 	}
-	std::cout << R << " : " << necrosis_threshold << " : " << phenotype.death.rates[nNecrosis] << std::endl; 
+//	std::cout << R << " : " << necrosis_threshold << " : " << phenotype.death.rates[nNecrosis] << std::endl; 
 
 	// cycle rate 
 	static double base_cycle_rate = pCD->phenotype.cycle.data.transition_rate(0,0); 
