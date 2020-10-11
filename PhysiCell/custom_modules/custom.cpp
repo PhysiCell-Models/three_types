@@ -169,6 +169,8 @@ void setup_tissue( void )
 		
 		pC = create_cell( get_cell_definition("A") ); 
 		pC->assign_position( position );
+		for( int k=0 ; k < pC->phenotype.death.rates.size() ; k++ )
+		{ pC->phenotype.death.rates[k] = 0.0; }
 	}
 	
 	// place B
@@ -182,6 +184,8 @@ void setup_tissue( void )
 		
 		pC = create_cell( get_cell_definition("B") ); 
 		pC->assign_position( position );
+		for( int k=0 ; k < pC->phenotype.death.rates.size() ; k++ )
+		{ pC->phenotype.death.rates[k] = 0.0; }
 	}
 
 	// place C
@@ -195,6 +199,8 @@ void setup_tissue( void )
 		
 		pC = create_cell( get_cell_definition("C") ); 
 		pC->assign_position( position );
+		for( int k=0 ; k < pC->phenotype.death.rates.size() ; k++ )
+		{ pC->phenotype.death.rates[k] = 0.0; }
 	}
 
 	return; 
@@ -400,31 +406,36 @@ void up_down_signal::display( void )
 
 void A_phenotype( Cell* pCell, Phenotype& phenotype, double dt )
 {
+	// housekeeping 
+	static Cell_Definition* pCD  = find_cell_definition("A");
+	static int nApoptosis = pCD->phenotype.death.find_death_model_index( "Apoptosis"); 
+	static int nNecrosis  = pCD->phenotype.death.find_death_model_index( "Necrosis"); 
+
+/*
 	if( phenotype.death.dead == true )
 	{
-		std::cout << phenotype.death.rates << std::endl; 
+		#pragma omp critical 
+		{
+			std::cout << (long int) pCell << std::endl ; 
+			std::cout << phenotype.cycle.model().name << std::endl; 
+			std::cout << "apop : " << phenotype.death.rates[nApoptosis] << std::endl; 
+			std::cout << "necro: " << phenotype.death.rates[nNecrosis] << std::endl << std::endl; 
+			system("sleep 1");
+		} 
+	}
+*/
+
+	if( phenotype.death.dead == true )
+	{
 
 		phenotype.secretion.set_all_secretion_to_zero(); 
 		phenotype.secretion.set_all_uptake_to_zero(); 
 		phenotype.motility.is_motile = false; 
 
 		pCell->functions.update_phenotype = NULL; 
-		// return; 
-	}
-	
-	// housekeeping 
-	static int nApoptosis = cell_defaults.phenotype.death.find_death_model_index( "apoptosis"); 
-	static int nNecrosis  = cell_defaults.phenotype.death.find_death_model_index( "necrosis"); 
-	static Cell_Definition* pCD  = find_cell_definition("A");
-
-
-	if( phenotype.death.dead == true )
-	{
-		std::cout << phenotype.death.rates[nApoptosis] << std::endl; 
-		std::cout << phenotype.death.rates[nNecrosis] << std::endl; 
 		return; 
 	}
-
+	
 	// sample A, B, C, resource, and pressure 
 	static int nA = microenvironment.find_density_index( "signal A" ); 
 	static int nB = microenvironment.find_density_index( "signal B" ); 
@@ -444,9 +455,8 @@ void A_phenotype( Cell* pCell, Phenotype& phenotype, double dt )
 	if( R < necrosis_threshold )
 	{
 		phenotype.death.rates[nNecrosis] = base_necrosis_rate; 
-		phenotype.death.rates[nNecrosis] *= (1.0 - R / necrosis_threshold); 
+		phenotype.death.rates[nNecrosis] *= (1.0 - R / necrosis_threshold);
 	}
-//	std::cout << R << " : " << necrosis_threshold << " : " << phenotype.death.rates[nNecrosis] << std::endl; 
 
 	// cycle rate 
 	static double base_cycle_rate = pCD->phenotype.cycle.data.transition_rate(0,0); 
@@ -486,7 +496,6 @@ void A_phenotype( Cell* pCell, Phenotype& phenotype, double dt )
 	if( p > parameters.doubles("A_apoptosis_pressure_threshold") )
 	{
 		phenotype.death.rates[nApoptosis] = 10; 
-		std::cout << p << " : " << parameters.doubles("A_apoptosis_pressure_threshold") << std::endl; 
 	}
 
 	// speed 
@@ -521,10 +530,6 @@ void A_phenotype( Cell* pCell, Phenotype& phenotype, double dt )
 	sig.add_effect( C , parameters.strings("A_signal_R") );	
 
 	phenotype.secretion.secretion_rates[nA] *= sig.compute_effect();
-
-		std::cout << phenotype.death.rates[nApoptosis] << std::endl; 
-		std::cout << phenotype.death.rates[nNecrosis] << std::endl << std::endl; 
-
 
 	return; 
 }

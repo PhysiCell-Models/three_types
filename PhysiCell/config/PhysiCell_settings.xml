@@ -357,7 +357,7 @@
 				</cycle>
 				<death>  
 					<model code="100" name="apoptosis"> 
-						<death_rate units="1/min">0.01</death_rate>
+						<death_rate units="1/min">0.00001</death_rate>
 					</model> 
 
 					<model code="101" name="necrosis">
@@ -369,15 +369,15 @@
 				<mechanics> 
 					<cell_cell_adhesion_strength units="micron/min">0.4</cell_cell_adhesion_strength>
 					<cell_cell_repulsion_strength units="micron/min">10.0</cell_cell_repulsion_strength>
-					<relative_maximum_adhesion_distance units="dimensionless">1.25</relative_maximum_adhesion_distance>
+					<relative_maximum_adhesion_distance units="dimensionless">1.5</relative_maximum_adhesion_distance>
 					<options>
-						<set_relative_equilibrium_distance enabled="false" units="dimensionless">1.8</set_relative_equilibrium_distance>
+						<set_relative_equilibrium_distance enabled="true" units="dimensionless">1.8</set_relative_equilibrium_distance>
 						<set_absolute_equilibrium_distance enabled="false" units="micron">15.12</set_absolute_equilibrium_distance>
 					</options>
 				</mechanics>
 				
 				<motility>  
-					<speed units="micron/min">1</speed>
+					<speed units="micron/min">0.25</speed>
 					<persistence_time units="min">1</persistence_time>
 					<migration_bias units="dimensionless">.5</migration_bias>
 					
@@ -386,7 +386,7 @@
 						<chemotaxis>
 							<enabled>true</enabled>
 							<substrate>signal A</substrate>
-							<direction>1</direction>
+							<direction>-1</direction>
 						</chemotaxis>
 					</options>
 				</motility>
@@ -523,7 +523,7 @@
 		
 		<div_initialization type="divider" description="---Initialization settings---"/>
 		
-		<number_of_A type="int" units="none" description="initial number of A">10</number_of_A>
+		<number_of_A type="int" units="none" description="initial number of A">100</number_of_A>
 		<number_of_B type="int" units="none" description="initial number of B">0</number_of_B>
 		<number_of_C type="int" units="none" description="initial number of C">0</number_of_C>
 		
@@ -534,25 +534,25 @@
 		<C_color type="string" description="color for C cells">red</C_color>
 		
 		<div_A type="divider" description="---cell type A settings---"/>
-		<A_cycle_A type="string" description="impact of signal A on A cycling (promote, inhibit, or neutral)">neutral</A_cycle_A>
+		<A_cycle_A type="string" description="impact of signal A on A cycling (promote, inhibit, or neutral)">inhibit</A_cycle_A>
 		<A_cycle_B type="string" description="impact of signal B on A cycling (promote, inhibit, or neutral)">neutral</A_cycle_B>
 		<A_cycle_C type="string" description="impact of signal C on A cycling (promote, inhibit, or neutral)">neutral</A_cycle_C>
-		<A_cycle_pressure_threshold type="double" description="pressure above threshold inhibits A cycling">1.0</A_cycle_pressure_threshold>
+		<A_cycle_pressure_threshold type="double" description="pressure above threshold inhibits A cycling">2.0</A_cycle_pressure_threshold>
 
 		<A_death_A type="string" description="impact of signal A on A apoptosis (promote, inihbit, or neutral">neutral</A_death_A>
 		<A_death_B type="string" description="impact of signal B on A apoptosis (promote, inihbit, or neutral">neutral</A_death_B>
 		<A_death_C type="string" description="impact of signal C on A apoptosis (promote, inihbit, or neutral">neutral</A_death_C>
 		<A_death_R type="string" description="impact of resource on A apoptosis (promote, inihbit, or neutral">neutral</A_death_R>
-		<A_apoptosis_pressure_threshold type="double" description="pressure above threshold triggers apoptosis">2.0</A_apoptosis_pressure_threshold>
+		<A_apoptosis_pressure_threshold type="double" description="pressure above threshold triggers apoptosis">4.0</A_apoptosis_pressure_threshold>
 
-		<A_necrosis_threshold type="double" description="necrosis of A cells begins below this threshold">0.05</A_necrosis_threshold>
+		<A_necrosis_threshold type="double" description="necrosis of A cells begins below this threshold">0.4</A_necrosis_threshold>
 
-		<A_speed_A type="string" description="impact of signal A on A motility (promote, inihbit, or neutral">inhibit</A_speed_A>
+		<A_speed_A type="string" description="impact of signal A on A motility (promote, inihbit, or neutral">neutral</A_speed_A>
 		<A_speed_B type="string" description="impact of signal B on A motility (promote, inihbit, or neutral">neutral</A_speed_B>
 		<A_speed_C type="string" description="impact of signal C on A motility (promote, inihbit, or neutral">neutral</A_speed_C>
 		<A_speed_R type="string" description="impact of resource on A motility (promote, inihbit, or neutral">neutral</A_speed_R>
 
-		<A_signal_A type="string" description="impact of signal A on A secretion (promote, inhibit, or neutral">neutral</A_signal_A>
+		<A_signal_A type="string" description="impact of signal A on A secretion (promote, inhibit, or neutral">promoter</A_signal_A>
 		<A_signal_B type="string" description="impact of signal B on A secretion (promote, inhibit, or neutral">neutral</A_signal_B>
 		<A_signal_C type="string" description="impact of signal C on A secretion (promote, inhibit, or neutral">neutral</A_signal_C>
 		<A_signal_R type="string" description="impact of resource on A secretion (promote, inhibit, or neutral">neutral</A_signal_R>
