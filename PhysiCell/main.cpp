@@ -125,45 +125,6 @@ int main( int argc, char* argv[] )
 	set_save_biofvm_data_as_matlab( true ); 
 	set_save_biofvm_cell_data( true ); 
 	set_save_biofvm_cell_data_as_custom_matlab( true );
-
-	// test code 
-
-	up_down_signal sig; 
-	sig.add_effect( 0.1, 'p' );
-	sig.display(); // .1 , 0
-
-	sig.add_effect( 0.4, 'p' );
-	sig.display(); // .5 , 0
-
-	sig.add_effect( 0.4, 'n' );
-	sig.display(); // .5 , 0 
-
-	sig.add_effect( 0.2, 'p' );
-	sig.display(); // .7 , 0 
-
-	sig.add_effect( 0.2, 'p' );
-	sig.display(); // 0.9 , 0 
-
-	sig.add_effect( 0.2, 'i' );
-	sig.display(); // 0.9 , .2 
-
-	sig.add_effect( 0.1, 'i' );
-	sig.display(); // 0.9 , .4 
-
-	sig.add_effect( 0.8, 'i' );
-	sig.display(); // 0.9 , 0.8 
-
-	sig.reset();
-	sig.display(); 
-
-	sig.add_effect( 0.8 , "I"); 
-	sig.display();  
-
-	sig.reset();
-	sig.add_effect( 0.3 , parameters.strings( "A_cycle_A") );
-	sig.display(); 
-
-	return -1; 
 	
 	// save a simulation snapshot 
 	
