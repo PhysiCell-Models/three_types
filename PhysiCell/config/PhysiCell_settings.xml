@@ -547,12 +547,12 @@
 
 		<A_necrosis_threshold type="double" description="necrosis of A cells begins below this threshold">0.4</A_necrosis_threshold>
 
-		<A_speed_A type="string" description="impact of signal A on A motility (promote, inihbit, or neutral">neutral</A_speed_A>
+		<A_speed_A type="string" description="impact of signal A on A motility (promote, inihbit, or neutral">promoter</A_speed_A>
 		<A_speed_B type="string" description="impact of signal B on A motility (promote, inihbit, or neutral">neutral</A_speed_B>
 		<A_speed_C type="string" description="impact of signal C on A motility (promote, inihbit, or neutral">neutral</A_speed_C>
 		<A_speed_R type="string" description="impact of resource on A motility (promote, inihbit, or neutral">neutral</A_speed_R>
 
-		<A_signal_A type="string" description="impact of signal A on A secretion (promote, inhibit, or neutral">promoter</A_signal_A>
+		<A_signal_A type="string" description="impact of signal A on A secretion (promote, inhibit, or neutral">neutral</A_signal_A>
 		<A_signal_B type="string" description="impact of signal B on A secretion (promote, inhibit, or neutral">neutral</A_signal_B>
 		<A_signal_C type="string" description="impact of signal C on A secretion (promote, inhibit, or neutral">neutral</A_signal_C>
 		<A_signal_R type="string" description="impact of resource on A secretion (promote, inhibit, or neutral">neutral</A_signal_R>
