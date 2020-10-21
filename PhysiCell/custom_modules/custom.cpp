@@ -289,7 +289,7 @@ std::vector<std::string> pseudo_fluorescence( Cell* pCell )
 		if( pCell->phenotype.death.dead == true )
 		{ strcpy( (char*) color.c_str(), "rgb(116,88,172)" ); }
 		
-		output.resize( 4, color ); 
+		output.assign( 4, color ); 
 	}
 	
 	// color live B
@@ -305,7 +305,7 @@ std::vector<std::string> pseudo_fluorescence( Cell* pCell )
 		if( pCell->phenotype.death.dead == true )
 		{ strcpy( (char*) color.c_str(), "rgb(200,130,0)" ); }
 		
-		output.resize( 4, color ); 
+		output.assign( 4, color ); 
 	}
 	
 	// color live C
@@ -321,7 +321,7 @@ std::vector<std::string> pseudo_fluorescence( Cell* pCell )
 		if( pCell->phenotype.death.dead == true )
 		{ strcpy( (char*) color.c_str(), "rgb(255,0,0)" ); }
 		
-		output.resize( 4, color ); 
+		output.assign( 4, color ); 
 	}
 
 	return output; 
