@@ -145,6 +145,53 @@ int main( int argc, char* argv[] )
 	SVG_plot( filename , microenvironment, 0.0 , PhysiCell_globals.current_time, cell_coloring_function );
 	
 	display_citations(); 
+
+/*	
+	// testing here 
+	
+	std::cout << " testing ... " << std::endl; 
+	
+	up_down_signal model; 
+	model.display(); 
+	
+	model.add_effect( 0.2 , 'p' );  
+	model.display(); 
+	
+	model.add_effect( 0.2 , 'p' );  
+	model.display(); 
+	
+	model.add_effect( 0.2 , 'n' );  
+	model.display(); 
+
+	model.add_effect( 0.2 , 'p' );  
+	model.display(); 
+	
+	model.add_effect( 1 , 'p' );  
+	model.display(); 
+	
+	model.add_effect( 0.1 , 'i' );  
+	model.display(); 
+
+	model.add_effect( 0.9 , 'i' );  
+	model.display(); 
+
+	model.add_effect( 0.9 , 'i' );  
+	model.display(); 
+
+	model.reset(); 
+	model.display(); 
+	
+	model.add_effect( 1 , 'i' );  
+	model.display(); 
+
+	model.add_effect( 1 , 'p' );  
+	model.display(); 
+
+	model.add_effect( 10 , 'p' );  
+	model.display(); 
+
+	exit(-1); 
+*/
 	
 	// set the performance timers 
 

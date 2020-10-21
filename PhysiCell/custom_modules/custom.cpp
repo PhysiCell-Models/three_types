@@ -336,7 +336,7 @@ up_down_signal::up_down_signal()
 	return; 
 } 
 
-void up_down_signal::add_effect( double factor, char factor_type )
+void up_down_signal::add_effect_old( double factor, char factor_type )
 {
 	// neutral signal 
 	if( factor_type == 'N' || factor_type == 'n' )
@@ -368,19 +368,78 @@ void up_down_signal::add_effect( double factor, char factor_type )
 	return; 
 }
 
+void up_down_signal::add_effect( double factor, char factor_type )
+{
+	// neutral signal 
+	if( factor_type == 'N' || factor_type == 'n' )
+	{ return; }
+
+	// promoter signal 
+	if( factor_type == 'P' || factor_type == 'p' )
+	{
+		// up = sum of all (scaled) promoter signals 
+		up += factor; 
+		no_promoters = false; 
+		return; 
+	}
+
+	// inhibitor signal 
+	if( factor_type == 'I' || factor_type == 'i' )
+	{
+		down += factor;
+		no_inhibitors = false; 
+		return; 
+	}
+
+	return; 
+}
+
 void up_down_signal::add_effect( double factor, std::string factor_type )
 {
 	this->add_effect( factor, factor_type[0] ); 
 	return; 
 }
 
-double up_down_signal::compute_effect( void )
+double up_down_signal::compute_effect_linear( void )
 {
 	double UP = up;
 	if( no_promoters )
 	{ UP = 1.0; }
 	return UP * (1.0 - down ); 
 }
+
+double up_down_signal::compute_effect_exponential( void )
+{
+	double UP = 1.0 - exp( -up );
+	double DOWN = exp( -down );  
+	if( no_promoters )
+	{ UP = 1.0; }
+	if( no_inhibitors )
+	{ DOWN = 1.0; }
+	return UP * DOWN; 
+}
+
+double up_down_signal::compute_effect_hill( void )
+{
+	static int hill_power = parameters.ints( "hill_power" ); 
+	static double half_max = parameters.doubles( "half_max" ); 
+	static double denom_constant = pow( half_max, hill_power );
+	
+	double temp = pow( up , hill_power ); 
+	double UP = temp / ( denom_constant + temp ); 
+	if( no_promoters )
+	{ UP = 1.0; }
+	
+	temp = pow( down , hill_power ); 
+	double DOWN = denom_constant / ( denom_constant + temp ); 
+	if( no_inhibitors )
+	{ DOWN = 1.0; }
+
+	return UP * DOWN; 
+}
+
+double up_down_signal::compute_effect( void )
+{ return this->compute_effect_hill(); }
 
 void up_down_signal::reset( void )
 { 

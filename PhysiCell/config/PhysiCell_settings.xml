@@ -533,6 +533,10 @@
 		<B_color type="string" description="color for B cells">orange</B_color>
 		<C_color type="string" description="color for C cells">red</C_color>
 		
+		<div_signaling type="divider" description="---Overall signaling settings---"/>
+		<hill_power type="int" units="none" description="Hill power for signal responses">2</hill_power>
+		<half_max type="double" units="none" description="half max for signal responses">0.25</half_max>
+		
 		<div_A type="divider" description="---cell type A settings---"/>
 		<A_cycle_A type="string" description="impact of signal A on A cycling (promote, inhibit, or neutral)">inhibit</A_cycle_A>
 		<A_cycle_B type="string" description="impact of signal B on A cycling (promote, inhibit, or neutral)">neutral</A_cycle_B>
