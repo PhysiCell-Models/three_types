@@ -549,7 +549,7 @@
 		<A_death_B type="string" description="impact of signal B on A apoptosis (promote, inihbit, or neutral">neutral</A_death_B>
 		<A_death_C type="string" description="impact of signal C on A apoptosis (promote, inihbit, or neutral">neutral</A_death_C>
 		<A_death_R type="string" description="impact of resource on A apoptosis (promote, inihbit, or neutral">neutral</A_death_R>
-		<A_apoptosis_pressure_threshold type="double" description="pressure above threshold triggers apoptosis">4.0</A_apoptosis_pressure_threshold>
+		<A_apoptosis_pressure_threshold type="double" description="pressure above threshold triggers apoptosis">10.0</A_apoptosis_pressure_threshold>
 
 		<A_necrosis_threshold type="double" description="necrosis of A cells begins below this threshold">0.4</A_necrosis_threshold>
 
@@ -576,7 +576,7 @@
 		<B_death_B type="string" description="impact of signal B on B apoptosis (promote, inihbit, or neutral">neutral</B_death_B>
 		<B_death_C type="string" description="impact of signal C on B apoptosis (promote, inihbit, or neutral">neutral</B_death_C>
 		<B_death_R type="string" description="impact of resource on B apoptosis (promote, inihbit, or neutral">neutral</B_death_R>
-		<B_apoptosis_pressure_threshold type="double" description="pressure above threshold triggers apoptosis">4.0</B_apoptosis_pressure_threshold>
+		<B_apoptosis_pressure_threshold type="double" description="pressure above threshold triggers apoptosis">10.0</B_apoptosis_pressure_threshold>
 
 		<B_speed_A type="string" description="impact of signal A on B motility (promote, inihbit, or neutral">neutral</B_speed_A>
 		<B_speed_B type="string" description="impact of signal B on B motility (promote, inihbit, or neutral">neutral</B_speed_B>
@@ -599,7 +599,7 @@
 		<C_death_B type="string" description="impact of signal B on C apoptosis (promote, inihbit, or neutral">neutral</C_death_B>
 		<C_death_C type="string" description="impact of signal C on C apoptosis (promote, inihbit, or neutral">neutral</C_death_C>
 		<C_death_R type="string" description="impact of resource on C apoptosis (promote, inihbit, or neutral">neutral</C_death_R>
-		<C_apoptosis_pressure_threshold type="double" description="pressure above threshold triggers apoptosis">4.0</C_apoptosis_pressure_threshold>
+		<C_apoptosis_pressure_threshold type="double" description="pressure above threshold triggers apoptosis">10.0</C_apoptosis_pressure_threshold>
 
 		<C_speed_A type="string" description="impact of signal A on C motility (promote, inihbit, or neutral">neutral</C_speed_A>
 		<C_speed_B type="string" description="impact of signal B on C motility (promote, inihbit, or neutral">neutral</C_speed_B>
