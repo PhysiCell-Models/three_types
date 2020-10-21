@@ -570,12 +570,13 @@
 		<B_cycle_A type="string" description="impact of signal A on B cycling (promote, inhibit, or neutral)">neutral</B_cycle_A>
 		<B_cycle_B type="string" description="impact of signal B on B cycling (promote, inhibit, or neutral)">neutral</B_cycle_B>
 		<B_cycle_C type="string" description="impact of signal C on B cycling (promote, inhibit, or neutral)">neutral</B_cycle_C>
-		<B_cycle_pressure_threshold type="double" description="pressure above threshold inhibits B cycling">1.0</B_cycle_pressure_threshold>
+		<B_cycle_pressure_threshold type="double" description="pressure above threshold inhibits B cycling">2.0</B_cycle_pressure_threshold>
 
 		<B_death_A type="string" description="impact of signal A on B apoptosis (promote, inihbit, or neutral">neutral</B_death_A>
 		<B_death_B type="string" description="impact of signal B on B apoptosis (promote, inihbit, or neutral">neutral</B_death_B>
 		<B_death_C type="string" description="impact of signal C on B apoptosis (promote, inihbit, or neutral">neutral</B_death_C>
 		<B_death_R type="string" description="impact of resource on B apoptosis (promote, inihbit, or neutral">neutral</B_death_R>
+		<B_apoptosis_pressure_threshold type="double" description="pressure above threshold triggers apoptosis">4.0</B_apoptosis_pressure_threshold>
 
 		<B_speed_A type="string" description="impact of signal A on B motility (promote, inihbit, or neutral">neutral</B_speed_A>
 		<B_speed_B type="string" description="impact of signal B on B motility (promote, inihbit, or neutral">neutral</B_speed_B>
@@ -592,16 +593,17 @@
 		<C_cycle_A type="string" description="impact of signal A on C cycling (promote, inhibit, or neutral)">neutral</C_cycle_A>
 		<C_cycle_B type="string" description="impact of signal B on C cycling (promote, inhibit, or neutral)">neutral</C_cycle_B>
 		<C_cycle_C type="string" description="impact of signal C on C cycling (promote, inhibit, or neutral)">neutral</C_cycle_C>
-		<C_cycle_pressure_threshold type="double" description="pressure above threshold inhibits C cycling">1.0</C_cycle_pressure_threshold>
+		<C_cycle_pressure_threshold type="double" description="pressure above threshold inhibits C cycling">2.0</C_cycle_pressure_threshold>
 
 		<C_death_A type="string" description="impact of signal A on C apoptosis (promote, inihbit, or neutral">neutral</C_death_A>
 		<C_death_B type="string" description="impact of signal B on C apoptosis (promote, inihbit, or neutral">neutral</C_death_B>
 		<C_death_C type="string" description="impact of signal C on C apoptosis (promote, inihbit, or neutral">neutral</C_death_C>
 		<C_death_R type="string" description="impact of resource on C apoptosis (promote, inihbit, or neutral">neutral</C_death_R>
+		<C_apoptosis_pressure_threshold type="double" description="pressure above threshold triggers apoptosis">4.0</C_apoptosis_pressure_threshold>
 
 		<C_speed_A type="string" description="impact of signal A on C motility (promote, inihbit, or neutral">neutral</C_speed_A>
 		<C_speed_B type="string" description="impact of signal B on C motility (promote, inihbit, or neutral">neutral</C_speed_B>
-		<C_speed_C type="string" description="impact of signal C on C motility (promote, inihbit, or neutral">promote</C_speed_C>
+		<C_speed_C type="string" description="impact of signal C on C motility (promote, inihbit, or neutral">neutral</C_speed_C>
 		<C_speed_R type="string" description="impact of resource on C motility (promote, inihbit, or neutral">neutral</C_speed_R>
 
 		<!-- secretion --> 
