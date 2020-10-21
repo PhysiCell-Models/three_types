@@ -121,16 +121,4 @@ void A_phenotype( Cell* pCell, Phenotype& phenotype, double dt );
 void B_phenotype( Cell* pCell, Phenotype& phenotype, double dt );
 void C_phenotype( Cell* pCell, Phenotype& phenotype, double dt );
 
-
-void A_motility( Cell* pCell, Phenotype& phenotype, double dt );
-
-
-
-
-
-void predator_hunting_function( Cell* pCell, Phenotype& phenotype, double dt ); 
-void predator_cycling_function( Cell* pCell, Phenotype& phenotype, double dt ); 
-
-void prey_cycling_function( Cell* pCell , Phenotype& phenotype, double dt ); 
-
 #endif 
