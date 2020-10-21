@@ -386,7 +386,7 @@
 						<chemotaxis>
 							<enabled>true</enabled>
 							<substrate>signal A</substrate>
-							<direction>-1</direction>
+							<direction>1</direction>
 						</chemotaxis>
 					</options>
 				</motility>
@@ -440,7 +440,7 @@
 						<enabled>true</enabled>
 						<chemotaxis>
 							<enabled>true</enabled>
-							<substrate>signal A</substrate>
+							<substrate>signal B</substrate>
 							<direction>1</direction>
 						</chemotaxis>
 					</options>
@@ -496,7 +496,7 @@
 						<chemotaxis>
 							<enabled>true</enabled>
 							<substrate>signal C</substrate>
-							<direction>-1</direction>
+							<direction>1</direction>
 						</chemotaxis>
 					</options>
 				</motility>
