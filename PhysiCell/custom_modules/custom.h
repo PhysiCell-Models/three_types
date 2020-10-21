@@ -86,6 +86,9 @@ void setup_microenvironment( void );
 
 std::vector<std::string> my_coloring_function( Cell* );
 
+std::vector<std::string> pseudo_fluorescence( Cell* pCell );
+
+
 //
 
 class up_down_signal
