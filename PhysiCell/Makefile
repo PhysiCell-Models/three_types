@@ -163,6 +163,9 @@ data-cleanup:
 	mkdir ./output
 	touch ./output/empty.txt
 	
+defaults: 
+	cp ./config/3types-defaults.xml ./config/PhysiCell_settings.xml 
+	
 # archival 
 	
 checkpoint: 
