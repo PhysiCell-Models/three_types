@@ -218,7 +218,7 @@ std::vector<std::string> my_coloring_function( Cell* pCell )
 
 	// color live C 
 		
-	if( pCell->phenotype.death.dead == false && pCell->type == A_type )
+	if( pCell->type == A_type )
 	{
 		 output[0] = parameters.strings("A_color");  
 		 output[2] = parameters.strings("A_color");  
@@ -226,7 +226,7 @@ std::vector<std::string> my_coloring_function( Cell* pCell )
 	
 	// color live B
 
-	if( pCell->phenotype.death.dead == false && pCell->type == B_type )
+	if( pCell->type == B_type )
 	{
 		 output[0] = parameters.strings("B_color");  
 		 output[2] = parameters.strings("B_color");  
@@ -234,14 +234,100 @@ std::vector<std::string> my_coloring_function( Cell* pCell )
 	
 	// color live C
 
-	if( pCell->phenotype.death.dead == false && pCell->type == C_type )
+	if( pCell->type == C_type )
 	{
 		 output[0] = parameters.strings("C_color");  
 		 output[2] = parameters.strings("C_color");  
 	}
+	
+	if( pCell->phenotype.death.dead == true )
+	{
+		// Necrotic - Brown
+		if( pCell->phenotype.cycle.current_phase().code == PhysiCell_constants::necrotic_swelling || 
+			pCell->phenotype.cycle.current_phase().code == PhysiCell_constants::necrotic_lysed || 
+			pCell->phenotype.cycle.current_phase().code == PhysiCell_constants::necrotic )
+		{
+			output[2] = "chocolate";
+		}
+		else
+		{
+			output[2] = "black"; 
+		}
+	}
 
 	return output; 
 }
+
+std::vector<std::string> pseudo_fluorescence( Cell* pCell )
+{
+	static int A_type = get_cell_definition( "A" ).type; 
+	static int B_type = get_cell_definition( "B" ).type; 
+	static int C_type = get_cell_definition( "C" ).type; 
+	
+	static int nA = microenvironment.find_density_index( "signal A" ); 
+	static int nB = microenvironment.find_density_index( "signal B" ); 
+	static int nC = microenvironment.find_density_index( "signal C" ); 
+	
+	static Cell_Definition* pCD_A  = find_cell_definition("A");
+	static Cell_Definition* pCD_B  = find_cell_definition("B");
+	static Cell_Definition* pCD_C  = find_cell_definition("C");
+	
+	// start with flow cytometry coloring 
+	
+	std::vector<std::string> output = {"black" , "black" , "black" , "black"} ;
+
+	// color live C 
+		
+	if( pCell->type == A_type )
+	{
+		double value = pCell->phenotype.secretion.secretion_rates[nA] 
+			/ ( 0.001 + pCD_A->phenotype.secretion.secretion_rates[nA] ); 
+		
+		std::string color; 	
+		sprintf( (char*) color.c_str(), "rgba(58,44,86,%f)", value ); 
+		
+		if( pCell->phenotype.death.dead == true )
+		{ strcpy( (char*) color.c_str(), "rgb(116,88,172)" ); }
+		
+		output.resize( 4, color ); 
+	}
+	
+	// color live B
+
+	if( pCell->type == B_type )
+	{
+		double value = pCell->phenotype.secretion.secretion_rates[nB] 
+			/ ( 0.001 + pCD_B->phenotype.secretion.secretion_rates[nB] ); 
+		
+		std::string color; 	
+		sprintf( (char*) color.c_str(), "rgba(100,65,0,%f)", value ); 
+		
+		if( pCell->phenotype.death.dead == true )
+		{ strcpy( (char*) color.c_str(), "rgb(200,130,0)" ); }
+		
+		output.resize( 4, color ); 
+	}
+	
+	// color live C
+
+	if( pCell->type == C_type )
+	{
+		double value = pCell->phenotype.secretion.secretion_rates[nC] 
+			/ ( 0.001 + pCD_C->phenotype.secretion.secretion_rates[nC] ); 
+		
+		std::string color; 	
+		sprintf( (char*) color.c_str(), "rgba(125,0,0,%f)", value ); 
+		
+		if( pCell->phenotype.death.dead == true )
+		{ strcpy( (char*) color.c_str(), "rgb(255,0,0)" ); }
+		
+		output.resize( 4, color ); 
+	}
+
+	return output; 
+}
+
+
 
 up_down_signal::up_down_signal()
 {
