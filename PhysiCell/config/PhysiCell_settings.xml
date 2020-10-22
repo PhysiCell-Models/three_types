@@ -87,7 +87,7 @@
 	</domain>
 	
 	<overall>
-		<max_time units="min">7200</max_time> <!-- 5 days * 24 h * 60 min -->
+		<max_time units="min">10080</max_time> <!-- 5 days * 24 h * 60 min -->
 		<time_units>min</time_units>
 		<space_units>micron</space_units>
 	
@@ -382,10 +382,10 @@
 					<migration_bias units="dimensionless">.5</migration_bias>
 					
 					<options>
-						<enabled>false</enabled>
+						<enabled>true</enabled>
 						<chemotaxis>
 							<enabled>true</enabled>
-							<substrate>signal A</substrate>
+							<substrate>signal B</substrate>
 							<direction>1</direction>
 						</chemotaxis>
 					</options>
@@ -437,10 +437,10 @@
 					<migration_bias units="dimensionless">.5</migration_bias>
 					
 					<options>
-						<enabled>false</enabled>
+						<enabled>true</enabled>
 						<chemotaxis>
 							<enabled>true</enabled>
-							<substrate>signal B</substrate>
+							<substrate>signal C</substrate>
 							<direction>1</direction>
 						</chemotaxis>
 					</options>
@@ -492,10 +492,10 @@
 					<migration_bias units="dimensionless">.5</migration_bias>
 					
 					<options>
-						<enabled>false</enabled>
+						<enabled>true</enabled>
 						<chemotaxis>
 							<enabled>true</enabled>
-							<substrate>signal C</substrate>
+							<substrate>signal A</substrate>
 							<direction>1</direction>
 						</chemotaxis>
 					</options>

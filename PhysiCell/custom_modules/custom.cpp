@@ -288,7 +288,7 @@ std::vector<std::string> pseudo_fluorescence( Cell* pCell )
 			
 		value *= (1.0-pCell->phenotype.volume.fluid_fraction) * max_fluorescence;  
 		if( pCell->phenotype.death.dead == true )
-		{ value = 1; }
+		{ value = (1.0-pCell->phenotype.volume.fluid_fraction) * max_fluorescence; }
 		sprintf( color, "rgba(255,0,255,%f)", value ); 		
 	}
 	
@@ -300,8 +300,8 @@ std::vector<std::string> pseudo_fluorescence( Cell* pCell )
 			/ ( 0.001 + pCD_B->phenotype.secretion.secretion_rates[nB] ); 
 		value *= (1.0-pCell->phenotype.volume.fluid_fraction) * max_fluorescence;  
 		if( pCell->phenotype.death.dead == true )
-		{ value = 1; }
-		sprintf( color, "rgba(255,0,255,%f)", value ); 		
+		{ value = (1.0-pCell->phenotype.volume.fluid_fraction) * max_fluorescence; }
+		sprintf( color, "rgba(0,255,0,%f)", value ); 		
 	}
 	
 	// color live C
@@ -312,8 +312,8 @@ std::vector<std::string> pseudo_fluorescence( Cell* pCell )
 			/ ( 0.001 + pCD_C->phenotype.secretion.secretion_rates[nC] ); 
 		value *= (1.0-pCell->phenotype.volume.fluid_fraction) * max_fluorescence;  
 		if( pCell->phenotype.death.dead == true )
-		{ value = 1; }
-		sprintf( color, "rgba(255,0,255,%f)", value ); 		
+		{ value = (1.0-pCell->phenotype.volume.fluid_fraction) * max_fluorescence; }
+		sprintf( color, "rgba(0,255,255,%f)", value ); 		
 	}
 
 	output = { color, "none", color , "none" }; 
