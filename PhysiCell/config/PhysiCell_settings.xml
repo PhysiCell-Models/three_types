@@ -534,7 +534,7 @@
 		<C_color type="string" description="color for C cells">red</C_color>
 		
 		<standard_plots type="bool" description="Enable additional standard plots?">true</standard_plots>
-		
+	
 		<div_signaling type="divider" description="---Overall signaling settings---"/>
 		<hill_power type="double" units="none" description="Hill power for signal responses">5</hill_power> <!-- 2 --> 
 		<half_max type="double" units="none" description="half max for signal responses">0.1</half_max> <!-- .25 --> 
@@ -564,7 +564,7 @@
 		<!-- secretion --> 
 		<A_signal_A type="string" description="impact of signal A on A secretion (promote, inhibit, or neutral">neutral</A_signal_A>
 		<A_signal_B type="string" description="impact of signal B on A secretion (promote, inhibit, or neutral">neutral</A_signal_B>
-		<A_signal_C type="string" description="impact of signal C on A secretion (promote, inhibit, or neutral">inhibit</A_signal_C>
+		<A_signal_C type="string" description="impact of signal C on A secretion (promote, inhibit, or neutral">neutral</A_signal_C>
 		<A_signal_R type="string" description="impact of resource on A secretion (promote, inhibit, or neutral">neutral</A_signal_R>
 
 
@@ -588,7 +588,7 @@
 		<B_speed_R type="string" description="impact of resource on B motility (promote, inihbit, or neutral">neutral</B_speed_R>
 
 		<!-- secretion --> 
-		<B_signal_A type="string" description="impact of signal A on B secretion (promote, inhibit, or neutral">inhibit</B_signal_A>
+		<B_signal_A type="string" description="impact of signal A on B secretion (promote, inhibit, or neutral">neutral</B_signal_A>
 		<B_signal_B type="string" description="impact of signal B on B secretion (promote, inhibit, or neutral">neutral</B_signal_B>
 		<B_signal_C type="string" description="impact of signal C on B secretion (promote, inhibit, or neutral">neutral</B_signal_C>
 		<B_signal_R type="string" description="impact of resource on B secretion (promote, inhibit, or neutral">neutral</B_signal_R>
@@ -614,7 +614,7 @@
 
 		<!-- secretion --> 
 		<C_signal_A type="string" description="impact of signal A on C secretion (promote, inhibit, or neutral">neutral</C_signal_A>
-		<C_signal_B type="string" description="impact of signal B on C secretion (promote, inhibit, or neutral">inhibit</C_signal_B>
+		<C_signal_B type="string" description="impact of signal B on C secretion (promote, inhibit, or neutral">neutral</C_signal_B>
 		<C_signal_C type="string" description="impact of signal C on C secretion (promote, inhibit, or neutral">neutral</C_signal_C>
 		<C_signal_R type="string" description="impact of resource on C secretion (promote, inhibit, or neutral">neutral</C_signal_R>
 		
