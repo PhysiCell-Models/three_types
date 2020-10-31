@@ -84,9 +84,8 @@ void setup_microenvironment( void );
 
 // custom pathology coloring function 
 
-std::vector<std::string> my_coloring_function( Cell* );
-
 std::vector<std::string> pseudo_fluorescence( Cell* pCell );
+std::vector<std::string> regular_colors( Cell* pCell );
 
 void SVG_plot_dark( std::string filename , Microenvironment& M, double z_slice , double time, std::vector<std::string> (*cell_coloring_function)(Cell*) );
 

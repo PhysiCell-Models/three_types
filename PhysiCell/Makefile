@@ -166,6 +166,12 @@ data-cleanup:
 defaults: 
 	cp ./config/3types-defaults.xml ./config/PhysiCell_settings.xml 
 	
+FOLDER := output
+FRAMERATE := 24
+movie:
+	ffmpeg -r $(FRAMERATE) -f image2 -i snapshot%08d.jpg -vcodec libx264 -pix_fmt yuv420p -strict -2 -tune animation -crf 15 -acodec aac out.mp4
+	
+	
 # archival 
 	
 checkpoint: 

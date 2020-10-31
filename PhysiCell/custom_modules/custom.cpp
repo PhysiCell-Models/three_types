@@ -206,7 +206,7 @@ void setup_tissue( void )
 	return; 
 }
 
-std::vector<std::string> my_coloring_function( Cell* pCell )
+std::vector<std::string> regular_colors( Cell* pCell )
 {
 	static int A_type = get_cell_definition( "A" ).type; 
 	static int B_type = get_cell_definition( "B" ).type; 
@@ -320,8 +320,6 @@ std::vector<std::string> pseudo_fluorescence( Cell* pCell )
 	return output; 
 }
 
-
-
 up_down_signal::up_down_signal()
 {
     up = 0.0;
@@ -416,7 +414,7 @@ double up_down_signal::compute_effect_exponential( void )
 
 double up_down_signal::compute_effect_hill( void )
 {
-	static int hill_power = parameters.ints( "hill_power" ); 
+	static double hill_power = parameters.doubles( "hill_power" ); 
 	static double half_max = parameters.doubles( "half_max" ); 
 	static double denom_constant = pow( half_max, hill_power );
 	
@@ -698,8 +696,8 @@ void B_phenotype( Cell* pCell, Phenotype& phenotype, double dt )
 
 	// secretion 
 
-	phenotype.secretion.secretion_rates[nA] = 
-		pCD->phenotype.secretion.secretion_rates[nA]; 
+	phenotype.secretion.secretion_rates[nB] = 
+		pCD->phenotype.secretion.secretion_rates[nB]; 
 
 	sig.reset(); 
 	// A 
@@ -711,7 +709,7 @@ void B_phenotype( Cell* pCell, Phenotype& phenotype, double dt )
 	// R 
 	sig.add_effect( R , parameters.strings("B_signal_R") );	
 
-	phenotype.secretion.secretion_rates[nA] *= sig.compute_effect();
+	phenotype.secretion.secretion_rates[nB] *= sig.compute_effect();
 
 	return; 
 }
@@ -828,8 +826,8 @@ void C_phenotype( Cell* pCell, Phenotype& phenotype, double dt )
 
 	// secretion 
 
-	phenotype.secretion.secretion_rates[nA] = 
-		pCD->phenotype.secretion.secretion_rates[nA]; 
+	phenotype.secretion.secretion_rates[nC] = 
+		pCD->phenotype.secretion.secretion_rates[nC]; 
 
 	sig.reset(); 
 	// A 
@@ -841,7 +839,7 @@ void C_phenotype( Cell* pCell, Phenotype& phenotype, double dt )
 	// R 
 	sig.add_effect( R , parameters.strings("C_signal_R") );	
 
-	phenotype.secretion.secretion_rates[nA] *= sig.compute_effect();
+	phenotype.secretion.secretion_rates[nC] *= sig.compute_effect();
 
 	return; 
 }
