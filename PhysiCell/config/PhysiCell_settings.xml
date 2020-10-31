@@ -101,7 +101,7 @@
 	</parallel> 
 	
 	<save>
-		<folder>output7</folder> <!-- use . for root --> 
+		<folder>output</folder> <!-- use . for root --> 
 
 		<full_data>
 			<interval units="min">60</interval>
