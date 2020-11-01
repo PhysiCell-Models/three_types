@@ -142,17 +142,17 @@ void setup_tissue( void )
 	double max_radius = parameters.doubles("max_distance_from_origin");
 	if( Xmax > max_radius )
 	{ Xmax = max_radius; }
-	if( Xmin < -max_radius; )
+	if( Xmin < -max_radius )
 	{ Xmin = -max_radius; }
 	
 	if( Ymax > max_radius )
 	{ Ymax = max_radius; }
-	if( Ymin < -max_radius; )
+	if( Ymin < -max_radius )
 	{ Ymin = -max_radius; }
 
 	if( Zmax > max_radius )
 	{ Zmax = max_radius; }
-	if( Zmin < -max_radius; )
+	if( Zmin < -max_radius )
 	{ Zmin = -max_radius; }
 	
 	if( default_microenvironment_options.simulate_2D == true )
