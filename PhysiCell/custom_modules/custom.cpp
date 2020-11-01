@@ -139,21 +139,40 @@ void setup_tissue( void )
 	double Ymax = microenvironment.mesh.bounding_box[4]; 
 	double Zmax = microenvironment.mesh.bounding_box[5]; 
 	
+	double max_radius = parameters.doubles("max_distance_from_origin");
+	if( Xmax > max_radius )
+	{ Xmax = max_radius; }
+	if( Xmin < -max_radius; )
+	{ Xmin = -max_radius; }
+	
+	if( Ymax > max_radius )
+	{ Ymax = max_radius; }
+	if( Ymin < -max_radius; )
+	{ Ymin = -max_radius; }
+
+	if( Zmax > max_radius )
+	{ Zmax = max_radius; }
+	if( Zmin < -max_radius; )
+	{ Zmin = -max_radius; }
+	
 	if( default_microenvironment_options.simulate_2D == true )
 	{
 		Zmin = 0.0; 
 		Zmax = 0.0; 
 	}
-	
+
 	double Xrange = Xmax - Xmin; 
-	Xmin += 0.25*Xrange; 
-	Xrange *= 0.5;
 	double Yrange = Ymax - Ymin; 
-	Ymin += 0.25*Yrange; 
-	Yrange *= 0.5;
 	double Zrange = Zmax - Zmin; 
-	Zmin += 0.25*Zrange; 
-	Zrange *= 0.5; 
+
+//	Xmin += 0.25*Xrange; 
+//	Xrange *= 0.5;
+
+//	Ymin += 0.25*Yrange; 
+//	Yrange *= 0.5;
+
+//	Zmin += 0.25*Zrange; 
+//	Zrange *= 0.5; 
 	// create some of each type of cell 
 	
 	Cell* pC;
@@ -163,9 +182,16 @@ void setup_tissue( void )
 	for( int n = 0 ; n < parameters.ints("number_of_A") ; n++ )
 	{
 		std::vector<double> position = {0,0,0}; 
-		position[0] = Xmin + UniformRandom()*Xrange; 
-		position[1] = Ymin + UniformRandom()*Yrange; 
-		position[2] = Zmin + UniformRandom()*Zrange; 
+		
+		double r = max_radius + 1; 
+		while( r > max_radius )
+		{
+			position[0] = Xmin + UniformRandom()*Xrange; 
+			position[1] = Ymin + UniformRandom()*Yrange; 
+			position[2] = Zmin + UniformRandom()*Zrange; 
+			
+			r = norm( position ); 
+		}
 		
 		pC = create_cell( get_cell_definition("A") ); 
 		pC->assign_position( position );
@@ -178,9 +204,16 @@ void setup_tissue( void )
 	for( int n = 0 ; n < parameters.ints("number_of_B") ; n++ )
 	{
 		std::vector<double> position = {0,0,0}; 
-		position[0] = Xmin + UniformRandom()*Xrange; 
-		position[1] = Ymin + UniformRandom()*Yrange; 
-		position[2] = Zmin + UniformRandom()*Zrange; 
+		
+		double r = max_radius + 1; 
+		while( r > max_radius )
+		{
+			position[0] = Xmin + UniformRandom()*Xrange; 
+			position[1] = Ymin + UniformRandom()*Yrange; 
+			position[2] = Zmin + UniformRandom()*Zrange; 
+			
+			r = norm( position ); 
+		}
 		
 		pC = create_cell( get_cell_definition("B") ); 
 		pC->assign_position( position );
@@ -193,9 +226,16 @@ void setup_tissue( void )
 	for( int n = 0 ; n < parameters.ints("number_of_C") ; n++ )
 	{
 		std::vector<double> position = {0,0,0}; 
-		position[0] = Xmin + UniformRandom()*Xrange; 
-		position[1] = Ymin + UniformRandom()*Yrange; 
-		position[2] = Zmin + UniformRandom()*Zrange; 
+
+		double r = max_radius + 1; 
+		while( r > max_radius )
+		{
+			position[0] = Xmin + UniformRandom()*Xrange; 
+			position[1] = Ymin + UniformRandom()*Yrange; 
+			position[2] = Zmin + UniformRandom()*Zrange; 
+			
+			r = norm( position ); 
+		}
 		
 		pC = create_cell( get_cell_definition("C") ); 
 		pC->assign_position( position );
@@ -502,6 +542,7 @@ void A_phenotype( Cell* pCell, Phenotype& phenotype, double dt )
 	static double base_necrosis_rate = pCD->phenotype.death.rates[nNecrosis];
 	static double necrosis_threshold = parameters.doubles("A_necrosis_threshold");
 	phenotype.death.rates[nNecrosis] = 0.0;
+	
 	if( R < necrosis_threshold )
 	{
 		phenotype.death.rates[nNecrosis] = base_necrosis_rate; 
@@ -632,6 +673,7 @@ void B_phenotype( Cell* pCell, Phenotype& phenotype, double dt )
 	static double base_necrosis_rate = pCD->phenotype.death.rates[nNecrosis];
 	static double necrosis_threshold = parameters.doubles("B_necrosis_threshold");
 	phenotype.death.rates[nNecrosis] = 0.0;
+	
 	if( R < necrosis_threshold )
 	{
 		phenotype.death.rates[nNecrosis] = base_necrosis_rate; 
@@ -762,6 +804,7 @@ void C_phenotype( Cell* pCell, Phenotype& phenotype, double dt )
 	static double base_necrosis_rate = pCD->phenotype.death.rates[nNecrosis];
 	static double necrosis_threshold = parameters.doubles("A_necrosis_threshold");
 	phenotype.death.rates[nNecrosis] = 0.0;
+	
 	if( R < necrosis_threshold )
 	{
 		phenotype.death.rates[nNecrosis] = base_necrosis_rate; 
