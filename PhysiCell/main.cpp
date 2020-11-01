@@ -200,15 +200,12 @@ int main( int argc, char* argv[] )
 
 	exit(-1); 
 */
-	std::cout << __FILE__ << " " << __LINE__ << std::endl; 
-	
+
 	// set the performance timers 
 
 	BioFVM::RUNTIME_TIC();
 	BioFVM::TIC();
 	
-	std::cout << __FILE__ << " " << __LINE__ << std::endl; 
-
 	std::ofstream report_file;
 	if( PhysiCell_settings.enable_legacy_saves == true )
 	{	
@@ -218,8 +215,6 @@ int main( int argc, char* argv[] )
 		report_file<<"simulated time\tnum cells\tnum division\tnum death\twall time"<<std::endl;
 	}
 	
-	std::cout << __FILE__ << " " << __LINE__ << std::endl; 
-
 	// main loop 
 	
 	try 

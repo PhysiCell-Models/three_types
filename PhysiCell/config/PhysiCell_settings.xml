@@ -526,7 +526,7 @@
 		<number_of_A type="int" units="none" description="initial number of A">25</number_of_A> <!-- 400 --> 
 		<number_of_B type="int" units="none" description="initial number of B">25</number_of_B>
 		<number_of_C type="int" units="none" description="initial number of C">25</number_of_C>
-		<max_distance_from_origin type="double" units="micron" description="max initial distance of cells from (0,0,0)">400</max_distance_from_origin>
+		<max_distance_from_origin type="double" units="micron" description="max initial distance of cells from (0,0,0)">150</max_distance_from_origin>
 		
 		<div_coloring type="divider" description="---Coloring settings---"/>
 
